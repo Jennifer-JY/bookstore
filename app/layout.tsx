@@ -22,23 +22,29 @@ export default function RootLayout({
       </head>
       <body>
         <header>
-          <div className="notification-banner">
-            <div>Free shipping on orders over $50</div>
-            <div>🇦🇺 AU</div>
+          <div className="bg-green-300 relative notification-banner">
+            <span className="text-left sm:block sm:text-center font-medium">
+              Free shipping on orders over $50
+            </span>
+            <span className="text-right absolute right-3 top-1/2 -translate-y-1/2">
+              🇦🇺 AU
+            </span>
           </div>
-          <div className="store-banner">
-            <div className="baloo.className font-bold">Brightbond</div>
-            <div>- Bright books for curious minds -</div>
-            <button>Login</button>
-            <button>
-              <i className="fa-solid fa-cart-shopping"></i>
-            </button>
+          <div className="store-banner flex flex-row justify-end p-4">
+            <div className="flex gap-3">
+              <button>Login</button>
+              <button>
+                <i className="fa-solid fa-cart-shopping"></i>
+              </button>
+            </div>
           </div>
         </header>
+
         {children}
-        <footer>
+        <hr className="ml-4 mr-4 mb-4 border-t border-gray-300"></hr>
+        <footer className="mx-auto flex flex-col w-1/2 items-center sm:flex-row sm:justify-around">
           <section>
-            <h2 className="font-bold">Brightbond</h2>
+            <h2 className="font-medium">Brightbond</h2>
             <div className="footer-links-container">
               <Link
                 className="text-blue-600 underline hover:text-blue-800"
@@ -56,27 +62,9 @@ export default function RootLayout({
               </Link>
             </div>
           </section>
+
           <section>
-            <h2 className="font-bold">Store</h2>
-            <div className="footer-links-container">
-              <Link
-                className="text-blue-600 underline hover:text-blue-800"
-                target="_blank"
-                href={"https://github.com/Jennifer-JY/bookstore"}
-              >
-                Home
-              </Link>
-              <Link
-                className="text-blue-600 underline hover:text-blue-800"
-                target="_blank"
-                href={"/"}
-              >
-                Cart
-              </Link>
-            </div>
-          </section>
-          <section>
-            <h2 className="font-bold">Support</h2>
+            <h2 className="font-medium">Support</h2>
             <div className="footer-links-container">
               <Link
                 className="text-blue-600 underline hover:text-blue-800"
