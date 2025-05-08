@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import TopBar from "@/components/TopBar";
 
 export const metadata: Metadata = {
   title: "Brightbond",
@@ -30,22 +31,15 @@ export default function RootLayout({
               🇦🇺 AU
             </span>
           </div>
-          <div className="store-banner flex flex-row justify-end p-4">
-            <div className="flex gap-3">
-              <button>Login</button>
-              <button>
-                <i className="fa-solid fa-cart-shopping"></i>
-              </button>
-            </div>
-          </div>
+          <TopBar />
         </header>
 
         {children}
-        <hr className="ml-4 mr-4 mb-4 border-t border-gray-300"></hr>
+        <hr className="ml-4 mr-4 mb-4 border-t border-gray-200"></hr>
         <footer className="mx-auto flex flex-col w-1/2 items-center sm:flex-row sm:justify-around">
           <section>
             <h2 className="font-medium">Brightbond</h2>
-            <div className="footer-links-container">
+            <div className="flex flex-col">
               <Link
                 className="text-blue-600 underline hover:text-blue-800"
                 target="_blank"
