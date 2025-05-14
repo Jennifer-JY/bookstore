@@ -19,13 +19,19 @@ export default function Home() {
       </Suspense>
 
       <nav className="w-1/2 mt-4 flex flex-col sm:justify-around sm:flex-row">
-        <Link href={"/"} className="mx-auto hover:underline font-semibold">
+        <Link
+          href={"/books?query=fiction"}
+          className="mx-auto hover:underline font-semibold"
+        >
           Fiction
         </Link>
-        <Link href={"/"} className="mx-auto hover:underline font-semibold">
+        <Link
+          href={"/books?query=non-fiction"}
+          className="mx-auto hover:underline font-semibold"
+        >
           Non-fiction
         </Link>
-        <Link href={"/"} className="mx-auto hover:underline font-semibold">
+        <Link href={"/books"} className="mx-auto hover:underline font-semibold">
           Shop All
         </Link>
       </nav>

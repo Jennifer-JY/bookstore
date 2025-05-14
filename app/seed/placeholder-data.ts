@@ -1,6 +1,6 @@
 export const books = [
   {
-    id: "1",
+    id: "dfdc5b55-3b13-4037-b38e-00cbcb5a6f4d",
     title: "50 Healthy Lunch Recipes",
     author: "Natalie Greaves",
     genre: "non-fiction",
@@ -8,7 +8,7 @@ export const books = [
     price: 29,
   },
   {
-    id: "2",
+    id: "7a398b1f-63b4-4e5f-a022-61f6e3d8d0f2",
     title: "The Paper Silence",
     author: "Clara Wren",
     genre: "fiction",
@@ -16,7 +16,7 @@ export const books = [
     price: 19,
   },
   {
-    id: "3",
+    id: "016c0b3e-9a9f-44b0-bb12-9f9d11f0102b",
     title: "Flesh and Iron",
     author: "Elias Thorn",
     genre: "fiction",
@@ -24,7 +24,7 @@ export const books = [
     price: 12.5,
   },
   {
-    id: "4",
+    id: "4d4a6c9e-9b6a-4902-a981-6f8f84bb5c33",
     title: "The Pause Between Words",
     author: "Dr. Alina Veras",
     genre: "non-fiction",
@@ -32,7 +32,7 @@ export const books = [
     price: 29,
   },
   {
-    id: "5",
+    id: "43b1c0d6-cf6a-41c6-9d77-5e499706cb58",
     title: "Rewriting the Script: How Childhood Narratives Shape Adult Lives",
     author: "Dr. Alina Veras",
     genre: "non-fiction",
@@ -40,7 +40,7 @@ export const books = [
     price: 22,
   },
   {
-    id: "6",
+    id: "a2ae4de6-823f-44d1-b0d5-d3b71939eb3f",
     title: "Digital Hunger",
     author: "Serena Kwan",
     genre: "non-fiction",
@@ -48,7 +48,7 @@ export const books = [
     price: 21,
   },
   {
-    id: "7",
+    id: "d1e01330-b75c-4321-8793-4a9aa8577267",
     title: "Almost Human: What AI Teaches Us About Ourselves",
     author: "Theo Malik",
     genre: "non-fiction",
@@ -56,7 +56,7 @@ export const books = [
     price: 18,
   },
   {
-    id: "8",
+    id: "63b6fe73-d9ee-4f0b-a493-22cc00e99931",
     title: "The Year I Forgot to Prove Myself",
     author: "Lillian Mok",
     genre: "non-fiction",
@@ -64,7 +64,7 @@ export const books = [
     price: 17,
   },
   {
-    id: "9",
+    id: "2ec7ae62-8cc3-4fcf-a11b-29668c77a44e",
     title: "Dust on the Blueprint: Why We Build Lives We Don’t Actually Want",
     author: "Jonah Reeve",
     genre: "non-fiction",
@@ -72,7 +72,7 @@ export const books = [
     price: 18,
   },
   {
-    id: "10",
+    id: "9972759f-70c7-46f3-8fa1-95aeed8051c4",
     title: "To Swallow the Moon",
     author: "Lila Okoye",
     genre: "fiction",
@@ -80,7 +80,7 @@ export const books = [
     price: 15,
   },
   {
-    id: "11",
+    id: "5471b5b5-e1c4-481b-9083-29610128db16",
     title: "What We Buried Under Snow",
     author: "Theo Malik",
     genre: "fiction",
@@ -88,7 +88,7 @@ export const books = [
     price: 17,
   },
   {
-    id: "12",
+    id: "b188d56c-32d0-4b2f-8207-37c7e3fd5f63",
     title: "Unrendered",
     author: "Samira Clay",
     genre: "fiction",

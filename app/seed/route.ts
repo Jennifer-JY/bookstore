@@ -1,17 +1,16 @@
-import postgres from "postgres";
+import { sql } from "../lib/data";
 import { bookDetails, books } from "./placeholder-data";
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
-
 async function seedBooks() {
+  await sql`DROP TABLE IF EXISTS books CASCADE;`;
   await sql`
     CREATE TABLE IF NOT EXISTS books (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         title TEXT NOT NULL,
         author TEXT NOT NULL,
-        genre TEXT CHECK (genre IN ('fiction', 'non-fiction')),
-        stock NUMERIC CHECK (stock >= 0),
-        price NUMERIC CHECK (price >= 0)
+        genre TEXT CHECK (genre IN ('fiction', 'non-fiction')) NOT NULL,
+        stock NUMERIC CHECK (stock >= 0) NOT NULL,
+        price NUMERIC CHECK (price >= 0) NOT NULL
     );
   `;
 
@@ -28,11 +27,12 @@ async function seedBooks() {
 }
 
 async function seedBookDetails() {
+  await sql`DROP TABLE IF EXISTS bookDetails;`;
   await sql`
   CREATE TABLE IF NOT EXISTS bookDetails (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    book_id TEXT,
-    published_date DATE,
+    book_id UUID,
+    published_date DATE NOT NULL,
     introduction TEXT,
     FOREIGN KEY (book_id) REFERENCES books(id)
   );
@@ -54,8 +54,8 @@ export async function GET() {
   try {
     await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    await sql.begin((sql) => [seedBooks(), seedBookDetails()]);
+    await seedBooks();
+    await seedBookDetails();
 
     return Response.json({ message: "Database seeded successfully" });
   } catch (error) {
