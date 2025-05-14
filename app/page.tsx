@@ -1,5 +1,6 @@
 import Search from "@/components/Search";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -12,7 +13,11 @@ export default function Home() {
           - Bright books for curious minds -
         </div>
       </div>
-      <Search />
+
+      <Suspense>
+        <Search />
+      </Suspense>
+
       <nav className="w-1/2 mt-4 flex flex-col sm:justify-around sm:flex-row">
         <Link href={"/"} className="mx-auto hover:underline font-semibold">
           Fiction
