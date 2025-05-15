@@ -1,14 +1,28 @@
-import { fetchBooksGivenTerm } from "@/app/lib/data";
+import { fetchBooksGivenTerm, fetchTotalNumItemsFound } from "@/app/lib/data";
 import Image from "next/image";
+import Pagenation from "./Pagination";
+
+const PAGE_SIZE = 1;
 
 export default async function Result({
   query,
-  currentPage,
+  page = 1,
 }: {
   query?: string;
-  currentPage?: string;
+  page?: number | string;
 }) {
-  const books = await fetchBooksGivenTerm(query || null);
+  const pageNum = Number(page);
+  const currentPage = Number.isInteger(pageNum) && pageNum > 0 ? pageNum : 1;
+
+  const books = await fetchBooksGivenTerm(
+    query || null,
+    currentPage,
+    PAGE_SIZE
+  );
+  const pages = Math.ceil(
+    (await fetchTotalNumItemsFound(query || null)) / PAGE_SIZE
+  );
+
   return (
     <div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
@@ -24,18 +38,20 @@ export default async function Result({
               <div>Title: {b.title}</div>
               <div>by: {b.author}</div>
               <div>＄{b.price}</div>
-              <div>{b.stock < 3 && `Limited stock: ${b.stock}`}</div>
+              <div>
+                {b.stock === 0
+                  ? "Sold out"
+                  : b.stock < 3
+                  ? `Limited stock: ${b.stock}`
+                  : null}
+              </div>
             </div>
           );
         })}
       </div>
       <div>
-        <Pagenation />
+        <Pagenation pages={pages} />
       </div>
     </div>
   );
-}
-
-function Pagenation() {
-  return <div>page: 1</div>;
 }

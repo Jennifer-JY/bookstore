@@ -26,6 +26,8 @@ export default function Search() {
     e.preventDefault();
     if (term.trim()) {
       router.push(`/books?query=${term}`);
+    } else {
+      router.push(`/books`);
     }
   };
 
