@@ -1,6 +1,7 @@
 import { fetchBooksGivenTerm, fetchTotalNumItemsFound } from "@/app/lib/data";
 import Image from "next/image";
 import Pagenation from "./Pagination";
+import Link from "next/link";
 
 const PAGE_SIZE = 1;
 
@@ -29,13 +30,17 @@ export default async function Result({
         {books.map((b) => {
           return (
             <div key={b.id}>
-              <Image
-                width={1410}
-                height={2250}
-                alt={`book ${b.title} by ${b.author} book cover`}
-                src={`/bookCovers/${b.id}.png`}
-              ></Image>
-              <div>Title: {b.title}</div>
+              <Link href={`/books/${b.id}`}>
+                <Image
+                  width={1410}
+                  height={2250}
+                  alt={`book ${b.title} by ${b.author} book cover`}
+                  src={`/bookCovers/${b.id}.png`}
+                ></Image>
+              </Link>
+              <Link href={`/books/${b.id}`}>
+                <div>Title: {b.title}</div>
+              </Link>
               <div>by: {b.author}</div>
               <div>＄{b.price}</div>
               <div>
