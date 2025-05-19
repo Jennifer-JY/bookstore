@@ -11,16 +11,16 @@ async function seedBooks() {
         genre TEXT CHECK (genre IN ('fiction', 'non-fiction')) NOT NULL,
         stock NUMERIC CHECK (stock >= 0) NOT NULL,
         price NUMERIC CHECK (price >= 0) NOT NULL,
-        strip_product_id TEXT UNIQUE,
-        strip_price_id TEXT UNIQUE
+        stripe_product_id TEXT UNIQUE,
+        stripe_price_id TEXT UNIQUE
     );
   `;
 
   const insertedBooks = await Promise.all(
     books.map(async (book) => {
       return sql`
-        INSERT INTO books (id, title, author, genre, stock, price, strip_product_id, strip_price_id)
-        VALUES (${book.id}, ${book.title}, ${book.author}, ${book.genre}, ${book.stock}, ${book.price}, ${book.strip_product_id}, ${book.strip_price_id})
+        INSERT INTO books (id, title, author, genre, stock, price, stripe_product_id, stripe_price_id)
+        VALUES (${book.id}, ${book.title}, ${book.author}, ${book.genre}, ${book.stock}, ${book.price}, ${book.stripe_product_id}, ${book.stripe_price_id})
       `;
     })
   );

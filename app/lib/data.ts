@@ -55,7 +55,7 @@ export async function getBookById(book_id: string) {
           b.genre,
           b.stock,
           b.price,
-          b.strip_price_id,
+          b.stripe_price_id,
           bd.published_date,
           bd.introduction
         FROM books b

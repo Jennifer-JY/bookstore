@@ -5,8 +5,8 @@ export type Book = {
   genre: "fiction" | "non-fiction";
   stock: number;
   price: number;
-  strip_product_id: string;
-  strip_price_id: string;
+  stripe_product_id: string;
+  stripe_price_id: string;
 };
 
 export type BookDetail = {
@@ -22,7 +22,7 @@ export type BookData = {
   genre: "fiction" | "non-fiction";
   stock: number;
   price: number;
-  strip_price_id: string;
+  stripe_price_id: string;
   published_date: Date;
   introduction: string;
 };
@@ -33,5 +33,5 @@ export type ItemInCart = {
   author: string;
   quantity: number;
   price: number;
-  strip_price_id: string;
+  stripe_price_id: string;
 };

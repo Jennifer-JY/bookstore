@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import Search from "./Search";
 import StoreIcon from "./StoreIcon";
 import { Suspense } from "react";
+import Link from "next/link";
 
 export default function TopBar() {
   const pathname = usePathname();
@@ -19,9 +20,11 @@ export default function TopBar() {
       </div>
       <div className="flex gap-3 sm:w-1/8 justify-end">
         <button>Login</button>
-        <button>
-          <i className="fa-solid fa-cart-shopping"></i>
-        </button>
+        <Link href={"/cart"}>
+          <button>
+            <i className="fa-solid fa-cart-shopping"></i>
+          </button>
+        </Link>
       </div>
     </div>
   );

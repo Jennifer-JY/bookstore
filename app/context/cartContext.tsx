@@ -14,6 +14,7 @@ export default function CartContextProvider({
 }: {
   children: ReactNode;
 }) {
+  // TODO: fetch the default items in cart from the database for each user
   const [itemsInCart, setItemsInCart] = useState<ItemInCart[]>([]);
 
   const addItemToCart = (item: ItemInCart) => {
