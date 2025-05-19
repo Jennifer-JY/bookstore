@@ -1,5 +1,5 @@
 "use client";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, use, useState } from "react";
 import { ItemInCart } from "../lib/types";
 
 type CartContextType = {
@@ -32,15 +32,13 @@ export default function CartContextProvider({
     });
   };
   return (
-    <CartContext.Provider value={{ itemsInCart, addItemToCart }}>
-      {children}
-    </CartContext.Provider>
+    <CartContext value={{ itemsInCart, addItemToCart }}>{children}</CartContext>
   );
 }
 
 // Hook to use context
 export function useCart() {
-  const context = useContext(CartContext);
+  const context = use(CartContext);
   if (!context)
     throw new Error("useCart must be used within a CartContextProvider");
   return context;
