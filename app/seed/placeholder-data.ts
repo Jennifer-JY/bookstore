@@ -1,3 +1,5 @@
+import bcrypt from "bcryptjs";
+
 export const books = [
   {
     id: "dfdc5b55-3b13-4037-b38e-00cbcb5a6f4d",
@@ -193,5 +195,16 @@ export const bookDetails = [
     published_date: "2023-06-07",
     introduction:
       "Before the final image appears, there’s a mess of code, chaos, and possibility. Unrendered is a story of identity in flux—a meditation on creativity, control, and the raw, unfinished moments that shape who we become.",
+  },
+];
+
+export const users = [
+  {
+    email: "123@gmail.com",
+    password: bcrypt.hashSync("bacon123", 10),
+  },
+  {
+    email: "456@gmail.com",
+    password: bcrypt.hashSync("apple123", 10),
   },
 ];

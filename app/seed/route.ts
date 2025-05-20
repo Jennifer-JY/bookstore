@@ -1,5 +1,5 @@
 import { sql } from "../lib/data";
-import { bookDetails, books } from "./placeholder-data";
+import { bookDetails, books, users } from "./placeholder-data";
 
 async function seedBooks() {
   await sql`DROP TABLE IF EXISTS books CASCADE;`;
@@ -52,12 +52,35 @@ async function seedBookDetails() {
   return insertedBookDetails;
 }
 
+async function seedUsers() {
+  await sql`DROP TABLE IF EXISTS users;`;
+  await sql`
+  CREATE TABLE IF NOT EXISTS users (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    email TEXT UNIQUE,
+    password TEXT
+  );
+`;
+
+  const insertedUsers = await Promise.all(
+    users.map(async (user) => {
+      return sql`
+        INSERT INTO users (email, password)
+        VALUES (${user.email}, ${user.password})
+      `;
+    })
+  );
+
+  return insertedUsers;
+}
+
 export async function GET() {
   try {
     await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     await seedBooks();
     await seedBookDetails();
+    await seedUsers();
 
     return Response.json({ message: "Database seeded successfully" });
   } catch (error) {

@@ -35,3 +35,8 @@ export type ItemInCart = {
   price: number;
   stripe_price_id: string;
 };
+
+export type User = {
+  email: string;
+  password: string;
+};
