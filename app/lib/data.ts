@@ -1,5 +1,5 @@
 import postgres from "postgres";
-import { Book, BookData } from "./types";
+import { Book, BookData, Cart, ItemInCart } from "./types";
 
 export const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -67,5 +67,30 @@ export async function getBookById(book_id: string) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch the books you are looking for.");
+  }
+}
+
+export async function getCartByEmail(email: string): Promise<Cart> {
+  try {
+    const cart = await sql<{ cart_id: string }[]>`
+      SELECT id as cart_id FROM usercart
+      WHERE email = ${email}
+      AND status = 'unpaid'
+      ORDER BY create_date ASC;
+    `;
+    if (cart.length === 0) {
+      return {};
+    }
+    const items = await sql<ItemInCart[]>`
+      SELECT c.book_id, b.title, b.author, c.quantity, b.price, b.stripe_price_id
+      FROM books b
+      JOIN cartDetails c
+      ON b.id = c.book_id
+      WHERE c.cart_id = ${cart[0].cart_id}
+    `;
+    return { cartId: cart[0].cart_id, itemsInCart: items };
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch cart for the user.");
   }
 }

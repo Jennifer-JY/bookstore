@@ -208,3 +208,39 @@ export const users = [
     password: bcrypt.hashSync("apple123", 10),
   },
 ];
+
+export const usercart = [
+  {
+    id: "f21e7773-3b86-4e43-89a5-9a6c11437d45",
+    email: "123@gmail.com",
+    status: "unpaid",
+  },
+  {
+    id: "7c3948cd-b017-41c2-b5f6-0d9bc7fa2ae2",
+    email: "j48901081@gmail.com",
+    status: "unpaid",
+  },
+];
+
+export const cartDetails = [
+  {
+    cart_id: "f21e7773-3b86-4e43-89a5-9a6c11437d45",
+    book_id: "dfdc5b55-3b13-4037-b38e-00cbcb5a6f4d",
+    quantity: 2,
+  },
+  {
+    cart_id: "f21e7773-3b86-4e43-89a5-9a6c11437d45",
+    book_id: "7a398b1f-63b4-4e5f-a022-61f6e3d8d0f2",
+    quantity: 1,
+  },
+  {
+    cart_id: "7c3948cd-b017-41c2-b5f6-0d9bc7fa2ae2",
+    book_id: "a2ae4de6-823f-44d1-b0d5-d3b71939eb3f",
+    quantity: 1,
+  },
+  {
+    cart_id: "7c3948cd-b017-41c2-b5f6-0d9bc7fa2ae2",
+    book_id: "d1e01330-b75c-4321-8793-4a9aa8577267",
+    quantity: 1,
+  },
+];

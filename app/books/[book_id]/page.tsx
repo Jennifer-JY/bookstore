@@ -1,6 +1,6 @@
 "use client";
 
-import { useCart } from "@/app/context/cartContext";
+import { useCart } from "@/app/contextAndProvider/cartContext";
 import { BookData, ItemInCart } from "@/app/lib/types";
 import { useParams } from "next/navigation";
 

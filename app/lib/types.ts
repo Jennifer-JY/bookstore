@@ -10,7 +10,6 @@ export type Book = {
 };
 
 export type BookDetail = {
-  id: string;
   book_id: string;
   published_date: Date;
   introduction: string;
@@ -39,4 +38,21 @@ export type ItemInCart = {
 export type User = {
   email: string;
   password: string;
+};
+
+export type UserCart = {
+  email: string;
+  status: "paid" | "unpaid";
+  create_date: Date;
+};
+
+export type CartDetail = {
+  cart_id: string;
+  book_id: string;
+  quantity: number;
+};
+
+export type Cart = {
+  cartId?: string;
+  itemsInCart?: ItemInCart[];
 };

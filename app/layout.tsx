@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
 import TopBar from "@/components/TopBar";
-import CartContextProvider from "./context/cartContext";
+import CartContextProvider from "./contextAndProvider/cartContext";
+import SessionProviderWrapper from "./contextAndProvider/sessionProvider";
 
 export const metadata: Metadata = {
   title: "Brightbond",
@@ -23,23 +24,24 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <CartContextProvider>
-          <header>
-            <div className="bg-green-300 relative notification-banner">
-              <span className="text-left sm:block sm:text-center font-medium">
-                Free shipping on orders over $50
-              </span>
-              <span className="text-right absolute right-3 top-1/2 -translate-y-1/2">
-                🇦🇺 AU
-              </span>
-            </div>
+        <SessionProviderWrapper>
+          <CartContextProvider>
+            <header>
+              <div className="bg-green-300 relative notification-banner">
+                <span className="text-left sm:block sm:text-center font-medium">
+                  Free shipping on orders over $50
+                </span>
+                <span className="text-right absolute right-3 top-1/2 -translate-y-1/2">
+                  🇦🇺 AU
+                </span>
+              </div>
 
-            <TopBar />
-          </header>
+              <TopBar />
+            </header>
 
-          {children}
-        </CartContextProvider>
-
+            {children}
+          </CartContextProvider>
+        </SessionProviderWrapper>
         <hr className="ml-4 mr-4 mb-4 border-t border-gray-200"></hr>
         <footer className="mx-auto flex flex-col w-1/2 items-center sm:flex-row sm:justify-around">
           <section>

@@ -1,13 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useCart } from "../context/cartContext";
+import { useCart } from "../contextAndProvider/cartContext";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function CartPage() {
+  const { status } = useSession();
   const router = useRouter();
   const { itemsInCart, addItemToCart } = useCart();
   console.log(itemsInCart);
   const handleCheckout = async () => {
+    if (status !== "authenticated") {
+      router.push("/login");
+      return;
+    }
     const line_items = itemsInCart.map((item) => {
       return {
         price: item.stripe_price_id,

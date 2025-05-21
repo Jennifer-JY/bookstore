@@ -1,8 +1,10 @@
 "use client";
-import { createContext, ReactNode, use, useState } from "react";
-import { ItemInCart } from "../lib/types";
+import { createContext, ReactNode, use, useEffect, useState } from "react";
+import { Cart, ItemInCart } from "../lib/types";
+import { useSession } from "next-auth/react";
 
 type CartContextType = {
+  cartId: string;
   itemsInCart: ItemInCart[];
   addItemToCart: (item: ItemInCart) => void;
 };
@@ -14,8 +16,22 @@ export default function CartContextProvider({
 }: {
   children: ReactNode;
 }) {
-  // TODO: fetch the default items in cart from the database for each user
+  const { status } = useSession();
   const [itemsInCart, setItemsInCart] = useState<ItemInCart[]>([]);
+  const [cartId, setCartId] = useState("");
+  console.log(status);
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/cart")
+        .then((res) => res.json())
+        .then((data: Cart) => {
+          setItemsInCart(data.itemsInCart || []);
+          setCartId(data.cartId || "");
+        });
+    } else {
+      setItemsInCart([]);
+    }
+  }, [status]);
 
   const addItemToCart = (item: ItemInCart) => {
     setItemsInCart((prev) => {
@@ -32,7 +48,9 @@ export default function CartContextProvider({
     });
   };
   return (
-    <CartContext value={{ itemsInCart, addItemToCart }}>{children}</CartContext>
+    <CartContext value={{ cartId, itemsInCart, addItemToCart }}>
+      {children}
+    </CartContext>
   );
 }
 

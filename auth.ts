@@ -11,6 +11,24 @@ import bcrypt from "bcryptjs";
 import { User } from "./app/lib/types";
 import { z } from "zod";
 import Google from "next-auth/providers/google";
+import { type DefaultSession } from "next-auth";
+
+declare module "next-auth" {
+  /**
+   * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    user: {
+      email: string;
+      /**
+       * By default, TypeScript merges new interface properties and overwrites existing ones.
+       * In this case, the default session user properties will be overwritten,
+       * with the new ones defined above. To keep the default session user properties,
+       * you need to add them back into the newly declared interface.
+       */
+    } & DefaultSession["user"];
+  }
+}
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -69,9 +87,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     // define what’s returned to the client as session.user
     // 	"session" Is just a decoded + filtered version of the JWT
-    async session({ session, token }) {
-      if (token?.email) {
-        session.user.email = token.email;
+    async session({ session, user }) {
+      if (user?.email) {
+        session.user.email = user.email;
       }
       return session;
     },
