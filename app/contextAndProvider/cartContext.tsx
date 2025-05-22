@@ -34,6 +34,7 @@ export default function CartContextProvider({
   }, [status]);
 
   const addItemToCart = (item: ItemInCart) => {
+    // TODO: Set cartId when there's no cart recorded
     setItemsInCart((prev) => {
       const existing = prev.find((i) => i.book_id === item.book_id);
       if (existing) {

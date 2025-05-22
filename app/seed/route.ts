@@ -85,8 +85,9 @@ async function seedUserCart() {
   CREATE TABLE IF NOT EXISTS usercart (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     email TEXT NOT NULL,
-    status TEXT CHECK (status IN ('paid', 'unpaid')) NOT NULL,
-    create_date TIMESTAMPTZ DEFAULT now()
+    status TEXT NOT NULL DEFAULT 'unpaid' CHECK (status IN ('paid', 'unpaid')),
+    create_date TIMESTAMPTZ DEFAULT now(),
+    stripe_session_id TEXT UNIQUE
   );
 `;
 

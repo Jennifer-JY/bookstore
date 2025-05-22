@@ -94,3 +94,43 @@ export async function getCartByEmail(email: string): Promise<Cart> {
     throw new Error("Failed to fetch cart for the user.");
   }
 }
+
+export async function updateCartStatusAfterSucsPayment(
+  sessionId: string,
+  email?: string
+) {
+  if (!email) {
+    throw new Error("customer email is not provided");
+  }
+  try {
+    const result = await sql`
+    UPDATE usercart
+    SET status = 'paid'
+    WHERE stripe_session_id = ${sessionId} AND email = ${email}
+    RETURNING *;
+  `;
+    return result;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to update cart status after payment succeeded.");
+  }
+}
+
+export async function storeStripeSession(
+  cartId: string,
+  email: string,
+  stripeSessionId: string
+) {
+  try {
+    const result = await sql`
+    UPDATE usercart
+    SET stripe_session_id = ${stripeSessionId}
+    WHERE id = ${cartId} AND email = ${email}
+    RETURNING *;
+  `;
+    return result;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to store the Stripe session.");
+  }
+}

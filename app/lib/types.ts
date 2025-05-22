@@ -44,6 +44,7 @@ export type UserCart = {
   email: string;
   status: "paid" | "unpaid";
   create_date: Date;
+  stripe_session_id?: string;
 };
 
 export type CartDetail = {

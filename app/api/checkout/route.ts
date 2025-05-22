@@ -1,3 +1,4 @@
+import { storeStripeSession } from "@/app/lib/data";
 import { auth } from "@/auth";
 import Stripe from "stripe";
 
@@ -7,7 +8,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request: Request) {
-  const { line_items } = await request.json();
+  const { line_items, cartId } = await request.json();
   console.log("passing req body: " + line_items);
 
   const usersession = await auth();
@@ -23,6 +24,24 @@ export async function POST(request: Request) {
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cart/success`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cart`,
     });
+    if (!session) {
+      return Response.json(
+        { error: "Failed to create Stripe session." },
+        { status: 500 }
+      );
+    } else {
+      const res = await storeStripeSession(
+        cartId,
+        usersession.user.email,
+        session.id
+      );
+      if (!res) {
+        return Response.json(
+          { error: "Failed to store Stripe session id for the user." },
+          { status: 500 }
+        );
+      }
+    }
     if (!session.url) {
       return Response.json(
         { error: "Stripe session created but URL is missing." },

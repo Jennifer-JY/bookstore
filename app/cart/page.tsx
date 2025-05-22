@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 export default function CartPage() {
   const { status } = useSession();
   const router = useRouter();
-  const { itemsInCart, addItemToCart } = useCart();
+  const { cartId, itemsInCart, addItemToCart } = useCart();
   console.log(itemsInCart);
   const handleCheckout = async () => {
     if (status !== "authenticated") {
@@ -26,7 +26,7 @@ export default function CartPage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ line_items: line_items }),
+      body: JSON.stringify({ line_items: line_items, cartId: cartId }),
     });
     if (!res.ok) {
       console.error("Failed to create checkout session");
