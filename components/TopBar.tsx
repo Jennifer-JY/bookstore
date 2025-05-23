@@ -40,11 +40,18 @@ export default function TopBar() {
           </div>
         )}
 
-        <Link href={"/cart"}>
-          <button>
-            <div>{itemsInCart.length}</div>
+        <Link href="/cart" className="relative inline-block">
+          {/* Cart Icon */}
+          <button className="text-xl">
             <i className="fa-solid fa-cart-shopping"></i>
           </button>
+
+          {/* Badge */}
+          {itemsInCart.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
+              {itemsInCart.length}
+            </span>
+          )}
         </Link>
       </div>
     </div>
