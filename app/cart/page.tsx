@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function CartPage() {
   const router = useRouter();
-  const { itemsInCart, addItemToCart } = useCart();
+  const { cartId, itemsInCart, addItemToCart } = useCart();
   console.log(itemsInCart);
   const handleCheckout = async () => {
     const line_items = itemsInCart.map((item) => {
@@ -20,7 +20,7 @@ export default function CartPage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ line_items: line_items }),
+      body: JSON.stringify({ line_items: line_items, cartId: cartId }),
     });
     if (!res.ok) {
       console.error("Failed to create checkout session");
@@ -79,10 +79,10 @@ export default function CartPage() {
           <input></input>
           <label>Phone Number</label>
           <input></input>
-          <button className="border-2" onClick={handleCheckout}>
-            checkout
-          </button>
         </form>
+        <button className="border-2" onClick={handleCheckout}>
+          checkout
+        </button>
       </div>
     </>
   );

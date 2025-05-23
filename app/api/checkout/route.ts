@@ -8,7 +8,9 @@ if (!process.env.STRIPE_SECRET_KEY) {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request: Request) {
-  const { line_items, cartId } = await request.json();
+  const body = await request.json();
+  console.log(body);
+  const { line_items, cartId } = body;
   console.log("passing req body: " + line_items);
 
   const usersession = await auth();
@@ -30,6 +32,15 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     } else {
+      if (!cartId || !usersession.user.email || !session.id) {
+        console.error(
+          "Missing value:",
+          cartId,
+          usersession.user.email,
+          session.id
+        );
+        throw new Error("Missing required input to storeStripeSession");
+      }
       const res = await storeStripeSession(
         cartId,
         usersession.user.email,
