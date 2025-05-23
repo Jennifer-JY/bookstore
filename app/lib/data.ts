@@ -143,8 +143,9 @@ export async function storeItemsInCart(
   try {
     if (!cartId) {
       const result = await sql`
-        INSERT INTO usercart (id, email)
-        VALUES (${cartId}, ${email})
+        INSERT INTO usercart (email)
+        VALUES (${email})
+        RETURNING id;
       `;
       cartId = result[0].id;
     }
