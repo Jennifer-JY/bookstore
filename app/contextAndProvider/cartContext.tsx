@@ -36,20 +36,47 @@ export default function CartContextProvider({
   }, [session]);
 
   const addItemToCart = (item: ItemInCart) => {
-    // TODO: Set cartId when there's no cart recorded
-    setItemsInCart((prev) => {
-      const existing = prev.find((i) => i.book_id === item.book_id);
-      if (existing) {
-        return prev.map((i) =>
+    let updatedItems;
+    const existing = itemsInCart.find((i) => i.book_id === item.book_id);
+    if (existing) {
+      // Update the quantity and remove the item if quantity becomes 0
+      updatedItems = itemsInCart
+        .map((i) =>
           i.book_id === item.book_id
-            ? { ...i, quantity: i.quantity + item.quantity }
+            ? { ...i, quantity: Number(i.quantity) + Number(item.quantity) }
             : i
-        );
+        )
+        .filter((i) => i.quantity > 0);
+    } else {
+      if (item.quantity > 0) {
+        updatedItems = [...itemsInCart, item];
       } else {
-        return [...prev, item];
+        updatedItems = [...itemsInCart];
       }
-    });
+    }
+
+    setItemsInCart(updatedItems);
+    console.log(updatedItems);
+    fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        itemsInCart: updatedItems,
+        cartId: cartId,
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data: Cart) => {
+        if (!cartId) setCartId(data.cartId || "");
+      })
+      .catch((error) => console.error("Error:", error));
   };
+
   return (
     <CartContext value={{ session, cartId, itemsInCart, addItemToCart }}>
       {children}

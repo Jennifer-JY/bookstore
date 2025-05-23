@@ -134,3 +134,42 @@ export async function storeStripeSession(
     throw new Error("Failed to store the Stripe session.");
   }
 }
+
+export async function storeItemsInCart(
+  cartId: string,
+  email: string,
+  itemsInCart: ItemInCart[]
+) {
+  try {
+    if (!cartId) {
+      const result = await sql`
+        INSERT INTO usercart (id, email)
+        VALUES (${cartId}, ${email})
+      `;
+      cartId = result[0].id;
+    }
+    if (!cartId) {
+      throw new Error("Failed to create cardId.");
+    }
+
+    await sql`
+  DELETE FROM cartDetails
+  WHERE cart_id = ${cartId}
+`;
+
+    await Promise.all(
+      itemsInCart.map(async (item) => {
+        return sql`
+      INSERT INTO cartDetails (cart_id, book_id, quantity)
+      VALUES (${cartId}, ${item.book_id}, ${item.quantity})
+      ON CONFLICT (cart_id, book_id) 
+      DO UPDATE SET quantity = cartDetails.quantity + ${item.quantity}
+    `;
+      })
+    );
+    return { cartId: cartId };
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to store the items in cart.");
+  }
+}

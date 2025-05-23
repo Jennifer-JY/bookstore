@@ -32,29 +32,58 @@ export default function CartPage() {
   };
 
   return (
-    <div>
+    <>
       <h2>cart</h2>
-      <div>
-        {itemsInCart.map((item) => {
-          return (
-            <div key={item.book_id}>
-              <Image
-                width={141}
-                height={225}
-                alt="bookcover display"
-                src={`/bookCovers/${item.book_id}.png`}
-              ></Image>
-              <div>
-                {item.title} by {item.author}
+      <div className="flex flex-row">
+        <div>
+          {itemsInCart.map((item) => {
+            return (
+              <div key={item.book_id}>
+                <div className="flex flex-row">
+                  <Image
+                    width={141}
+                    height={225}
+                    alt="bookcover display"
+                    src={`/bookCovers/${item.book_id}.png`}
+                  ></Image>
+                  <div>
+                    <div>
+                      {item.title} by {item.author}
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => addItemToCart({ ...item, quantity: -1 })}
+                      >
+                        -
+                      </button>
+                      {item.quantity}
+                      <button
+                        onClick={() => addItemToCart({ ...item, quantity: 1 })}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div>$ {item.price}</div>
+                  </div>
+                </div>
               </div>
-              <div>$ {item.price}</div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <form className="flex flex-col">
+          <label>Recipient Name</label>
+          <input></input>
+          <label>Address</label>
+          <input></input>
+          <label>PostCode</label>
+          <input></input>
+          <label>Phone Number</label>
+          <input></input>
+          <button className="border-2" onClick={handleCheckout}>
+            checkout
+          </button>
+        </form>
       </div>
-      <button className="border-2" onClick={handleCheckout}>
-        checkout
-      </button>
-    </div>
+    </>
   );
 }
