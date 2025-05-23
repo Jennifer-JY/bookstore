@@ -72,47 +72,39 @@ export default function CartPage() {
             );
           })}
         </div>
-        <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md space-y-6 mb-7">
-          <form className="flex flex-col space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Recipient Name
-              </label>
+        <div className="sm:w-1/3 sm:mx-auto">
+          <form className="flex flex-col mb-8 w-full">
+            <div className="flex flex-col">
+              <label>Recipient Name</label>
               <input
-                className="w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+                className="p-2 border border-gray-300"
                 type="text"
                 placeholder="e.g. Mario Rossi"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Address
-              </label>
+            <div className="flex flex-col">
+              <label>Address</label>
               <input
-                className="w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+                className="p-2 border border-gray-300"
                 type="text"
                 placeholder="e.g. Via Roma 10"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                PostCode
-              </label>
+            <div className="flex flex-col">
+              <label>PostCode</label>
               <input
-                className="w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+                className="p-2 border border-gray-300"
                 type="text"
                 placeholder="e.g. 00100"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number
-              </label>
+            <div className="flex flex-col">
+              <label>Phone Number</label>
               <input
-                className="w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+                className="p-2 border border-gray-300"
                 type="tel"
                 placeholder="e.g. +61 0467362538"
               />
