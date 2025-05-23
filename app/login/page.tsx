@@ -64,7 +64,7 @@ export default function Login() {
 
       <button
         type="button"
-        onClick={() => signIn("google")}
+        onClick={() => signIn("google", { callbackUrl: callbackUrl })}
         className="mt-4 border-2 border-gray-100 p-2"
       >
         Sign in with Google

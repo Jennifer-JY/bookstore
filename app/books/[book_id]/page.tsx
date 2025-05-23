@@ -15,6 +15,7 @@ export default function BookPage() {
   const { itemsInCart, addItemToCart } = useCart();
 
   const handleAddToCart = async () => {
+    console.log("Add to cart");
     const res = await fetch(`/api/books/${book_id}`);
     if (!res.ok) {
       console.error("Failed to fetch book");

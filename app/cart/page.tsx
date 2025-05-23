@@ -2,18 +2,12 @@
 import { useRouter } from "next/navigation";
 import { useCart } from "../contextAndProvider/cartContext";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 
 export default function CartPage() {
-  const { status } = useSession();
   const router = useRouter();
-  const { cartId, itemsInCart, addItemToCart } = useCart();
+  const { itemsInCart, addItemToCart } = useCart();
   console.log(itemsInCart);
   const handleCheckout = async () => {
-    if (status !== "authenticated") {
-      router.push("/login");
-      return;
-    }
     const line_items = itemsInCart.map((item) => {
       return {
         price: item.stripe_price_id,
@@ -26,7 +20,7 @@ export default function CartPage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ line_items: line_items, cartId: cartId }),
+      body: JSON.stringify({ line_items: line_items }),
     });
     if (!res.ok) {
       console.error("Failed to create checkout session");

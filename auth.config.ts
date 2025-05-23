@@ -8,11 +8,14 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnAccount = nextUrl.pathname.startsWith("/account");
-      if (isOnAccount) {
+      const isOnBookDetail = nextUrl.pathname.startsWith("/books/");
+      const isOnCart = nextUrl.pathname.startsWith("/cart");
+
+      if (isOnAccount || isOnBookDetail || isOnCart) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn && nextUrl.pathname === "/login") {
-        return Response.redirect(new URL("/", nextUrl));
+        return true;
       }
       return true;
     },
