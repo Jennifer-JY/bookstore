@@ -16,8 +16,8 @@ export async function POST(request: Request) {
       rawBody,
       sig,
       //For test:
-      process.env.FOR_TEST_STRIPE_WEBHOOK_SECRET!
-      // process.env.STRIPE_WEBHOOK_SECRET!
+      // process.env.FOR_TEST_STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET!
     );
     if (event.type === "checkout.session.completed") {
       const checkoutSession = event.data.object as Stripe.Checkout.Session;
