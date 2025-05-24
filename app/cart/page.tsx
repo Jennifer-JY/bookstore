@@ -2,15 +2,28 @@
 import { useRouter } from "next/navigation";
 import { useCart } from "../contextAndProvider/cartContext";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function CartPage() {
   const router = useRouter();
   const { cartId, itemsInCart, addItemToCart } = useCart();
-  console.log(itemsInCart);
+
+  const [userDelivInfo, setUserDelivInfo] = useState({
+    name: "",
+    address: "",
+    postcode: "",
+    phone: "",
+  });
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserDelivInfo({ ...userDelivInfo, [e.target.name]: e.target.value });
+  };
   const handleCheckout = async () => {
-    const line_items = itemsInCart.map((item) => {
+    const items = itemsInCart.map((item) => {
       return {
-        price: item.stripe_price_id,
+        book_id: item.book_id,
         quantity: item.quantity,
       };
     });
@@ -20,10 +33,17 @@ export default function CartPage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ line_items: line_items, cartId: cartId }),
+      body: JSON.stringify({
+        items: items,
+        cartId: cartId,
+        userDelivInfo: userDelivInfo,
+      }),
     });
     if (!res.ok) {
-      console.error("Failed to create checkout session");
+      const errorData = await res.json();
+      setErrorMessage(
+        errorData.error || "Something went wrong during checkout."
+      );
       return;
     }
     const data = await res.json();
@@ -77,39 +97,56 @@ export default function CartPage() {
             <div className="flex flex-col">
               <label>Recipient Name</label>
               <input
+                name="name"
                 className="p-2 border border-gray-300"
                 type="text"
                 placeholder="e.g. Mario Rossi"
+                value={userDelivInfo.name}
+                onChange={handleChange}
               />
             </div>
 
             <div className="flex flex-col">
               <label>Address</label>
               <input
+                name="address"
                 className="p-2 border border-gray-300"
                 type="text"
                 placeholder="e.g. Via Roma 10"
+                value={userDelivInfo.address}
+                onChange={handleChange}
               />
             </div>
 
             <div className="flex flex-col">
               <label>PostCode</label>
               <input
+                name="postcode"
                 className="p-2 border border-gray-300"
                 type="text"
                 placeholder="e.g. 00100"
+                value={userDelivInfo.postcode}
+                onChange={handleChange}
               />
             </div>
 
             <div className="flex flex-col">
               <label>Phone Number</label>
               <input
+                name="phone"
                 className="p-2 border border-gray-300"
                 type="tel"
                 placeholder="e.g. +61 0467362538"
+                value={userDelivInfo.phone}
+                onChange={handleChange}
               />
             </div>
           </form>
+          {errorMessage && (
+            <div className="text-red-600 font-semibold mb-4">
+              {errorMessage}
+            </div>
+          )}
 
           <button
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200"

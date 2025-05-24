@@ -130,6 +130,21 @@ async function seedCartDetails() {
   return insertedcartDetails;
 }
 
+async function insertUserDeliveryInfo() {
+  await sql`DROP TABLE IF EXISTS user_delivery_infos;`;
+  await sql`
+    CREATE TABLE user_delivery_infos (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    address VARCHAR(300) NOT NULL,
+    postcode TEXT NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+`;
+}
+
 export async function GET() {
   try {
     await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -139,6 +154,7 @@ export async function GET() {
     await seedUsers();
     await seedUserCart();
     await seedCartDetails();
+    await insertUserDeliveryInfo();
 
     return Response.json({ message: "Database seeded successfully" });
   } catch (error) {

@@ -1,5 +1,5 @@
 import postgres from "postgres";
-import { Book, BookData, Cart, ItemInCart } from "./types";
+import { Book, BookData, Cart, ItemInCart, UserDeliveryInfo } from "./types";
 
 export const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -173,4 +173,42 @@ export async function storeItemsInCart(
     console.error("Database Error:", error);
     throw new Error("Failed to store the items in cart.");
   }
+}
+
+export async function storeUserDeliveryInfo(info: UserDeliveryInfo) {
+  const { email, name, address, postcode, phone } = info;
+  try {
+    await sql`
+    INSERT INTO user_delivery_infos (email, name, address, postcode, phone)
+        VALUES (${email}, ${name}, ${address}, ${postcode}, ${phone})
+  `;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to store the Stripe session.");
+  }
+}
+
+export async function getUserEmailByCartId(cartId: string) {
+  try {
+    const email = await sql<{ email: string }[]>`
+      SELECT email FROM usercart
+      WHERE id = ${cartId}
+      AND status = 'unpaid'
+      ORDER BY create_date ASC
+      LIMIT 1;
+    `;
+    return email[0]?.email || null;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Fail to get the email from the given cartId.");
+  }
+}
+
+export async function getPriceIdsByBookIds(bookIds: string[]) {
+  const bookRows = await sql<{ book_id: string; stripe_price_id: string }[]>`
+  SELECT id as book_id, stripe_price_id
+  FROM books
+  WHERE id IN ${sql(bookIds)}
+`;
+  return bookRows;
 }

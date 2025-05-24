@@ -244,3 +244,13 @@ export const cartDetails = [
     quantity: 1,
   },
 ];
+
+export const UserDeliveryInfo = [
+  {
+    email: "123@gmail.com",
+    name: "Jack",
+    address: "Unit 9 43 High Street, Kingsford, NSW Australia",
+    postcode: 3400,
+    phone: "0283947392",
+  },
+];

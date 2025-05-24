@@ -32,7 +32,6 @@ export type ItemInCart = {
   author: string;
   quantity: number;
   price: number;
-  stripe_price_id: string;
 };
 
 export type User = {
@@ -56,4 +55,24 @@ export type CartDetail = {
 export type Cart = {
   cartId?: string;
   itemsInCart?: ItemInCart[];
+};
+
+export type UserDeliveryInfo = {
+  email: string;
+  name: string;
+  address: string;
+  postcode: number;
+  phone: string;
+};
+
+export type CheckoutInfo = {
+  formData: FormData;
+  lineItems: string;
+  cardId: string;
+  email: string;
+};
+
+export type StripeLineItemts = {
+  price: string; // stripe_price_id
+  quantity: number;
 };
