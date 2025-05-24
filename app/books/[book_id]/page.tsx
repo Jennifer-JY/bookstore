@@ -38,7 +38,6 @@ export default function BookPage() {
       author: bookDetail.author,
       quantity: DEFAULT_ADD_QUANTITY_AFTER_CLICKING_BUTTON,
       price: bookDetail.price,
-      stripe_price_id: bookDetail.stripe_price_id,
     };
     addItemToCart(itemToAdd);
   };
