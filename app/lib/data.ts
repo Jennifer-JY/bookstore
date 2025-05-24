@@ -72,13 +72,15 @@ export async function getBookById(book_id: string) {
 
 export async function getCartByEmail(email: string): Promise<Cart> {
   try {
-    const cart = await sql<{ cart_id: string }[]>`
+    const cart = await sql<{ cart_id: string; status: string }[]>`
       SELECT id as cart_id FROM usercart
       WHERE email = ${email}
-      AND status = 'unpaid'
       ORDER BY create_date ASC;
     `;
-    if (cart.length === 0) {
+
+    // If there's no cart or the most recent cart is paid,
+    // Just treat it as nothing in cart yet
+    if (cart.length === 0 || cart[0].status === "paid") {
       return {};
     }
     const items = await sql<ItemInCart[]>`
