@@ -7,7 +7,7 @@ export default function Home() {
     <div className="mb-5 sm:mb-20 p-4 flex flex-col items-center">
       <div>
         <div className="text-3xl sm:text-4xl font-bold tracking-tight text-center">
-          Brightbond
+          Bookdrop
         </div>
         <div className="text-base sm:text-lg text-gray-600 italic text-center mt-1">
           - Bright books for curious minds -

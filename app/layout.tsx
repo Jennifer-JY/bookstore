@@ -6,7 +6,7 @@ import CartContextProvider from "./contextAndProvider/cartContext";
 import { auth } from "@/auth";
 
 export const metadata: Metadata = {
-  title: "Brightbond",
+  title: "Bookdrop",
   description: "A small bookstore for the curious mind.",
 };
 
@@ -45,7 +45,7 @@ export default async function RootLayout({
         <hr className="ml-4 mr-4 mb-4 border-t border-gray-200"></hr>
         <footer className="mx-auto flex flex-col w-1/2 items-center sm:flex-row sm:justify-around">
           <section>
-            <h2 className="font-medium">Brightbond</h2>
+            <h2 className="font-medium">Bookdrop</h2>
             <div className="flex flex-col">
               <Link
                 className="text-blue-600 underline hover:text-blue-800"

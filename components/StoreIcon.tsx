@@ -1,8 +1,20 @@
+import { Quicksand } from "next/font/google";
+
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
 export default function StoreIcon() {
   return (
     <>
-      <div className="bg-green-50 w-1/8 h-5 hidden sm:block">Brightbond</div>
-      <div className="block sm:hidden">B</div>
+      <div
+        className={`${quicksand.className} bg-green-50 w-fit h-5 hidden sm:block font-bold text-2xl`}
+      >
+        Bookdrop
+      </div>
+      <div className="block sm:hidden font-bold text-xl">B</div>
     </>
   );
 }
