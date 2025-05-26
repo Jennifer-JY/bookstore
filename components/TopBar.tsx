@@ -24,12 +24,13 @@ export default function TopBar() {
       <div className="flex gap-3 sm:w-1/8 justify-end">
         {session === null && <button>Login</button>}
         {session !== null && (
-          <div>
+          <div className="flex flex-row justify-center items-center">
             <Link href={"/account"}>
-              <button>
-                <i className="fa-regular fa-circle-user"></i>
+              <button className="mr-2 cursor-pointer">
+                <i className="fa-regular fa-circle-user text-2xl"></i>
               </button>
               <button
+                className="cursor-pointer"
                 onClick={async () => {
                   await signOut({ redirect: true, callbackUrl: "/" });
                 }}
@@ -42,8 +43,8 @@ export default function TopBar() {
 
         <Link href="/cart" className="relative inline-block">
           {/* Cart Icon */}
-          <button className="text-xl">
-            <i className="fa-solid fa-cart-shopping"></i>
+          <button className="cursor-pointer">
+            <i className="fa-solid fa-cart-shopping text-xl"></i>
           </button>
 
           {/* Badge */}

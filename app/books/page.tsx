@@ -9,12 +9,11 @@ export default async function Books({
   const { query, page } = await searchParams;
 
   return (
-    <div className="border-t-1 border-gray-200 shadow-sm lg:flex lg:flex-row lg:h-full">
+    <div className="border-t-1 border-gray-200 shadow-sm lg:flex lg:flex-row lg:h-full lg:gap-3">
       <div className="flex-1">
         <SideNav />
       </div>
       <div className="flex-[4]">
-        <h2>Results</h2>
         <Result query={query} page={page} />
       </div>
     </div>

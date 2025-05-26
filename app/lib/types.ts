@@ -76,3 +76,18 @@ export type StripeLineItemts = {
   price: string; // stripe_price_id
   quantity: number;
 };
+
+export type PastOrder = {
+  cartId: string;
+  createDate: Date;
+  items: PastOrderDisplay[];
+  totalPrice: number;
+};
+
+export type PastOrderDisplay = {
+  quantity: number;
+  price: number;
+  author: string;
+  bookId: string;
+  title: string;
+};

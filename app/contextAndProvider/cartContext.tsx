@@ -35,6 +35,7 @@ export default function CartContextProvider({
     }
   }, [session]);
 
+  console.log(itemsInCart);
   const addItemToCart = (item: ItemInCart) => {
     let updatedItems;
     const existing = itemsInCart.find((i) => i.book_id === item.book_id);

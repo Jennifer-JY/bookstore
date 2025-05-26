@@ -1,4 +1,5 @@
 import { Quicksand } from "next/font/google";
+import Link from "next/link";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -9,12 +10,14 @@ const quicksand = Quicksand({
 export default function StoreIcon() {
   return (
     <>
-      <div
-        className={`${quicksand.className} bg-green-50 w-fit h-5 hidden sm:block font-bold text-2xl`}
-      >
-        Bookdrop
-      </div>
-      <div className="block sm:hidden font-bold text-xl">B</div>
+      <Link href="/">
+        <div
+          className={`${quicksand.className} w-fit h-5 hidden font-bold text-2xl cursor-pointer sm:flex items-center`}
+        >
+          Bookdrop
+        </div>
+        <div className="block sm:hidden font-bold text-xl">B</div>
+      </Link>
     </>
   );
 }

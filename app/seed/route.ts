@@ -1,11 +1,5 @@
 import { sql } from "../lib/data";
-import {
-  bookDetails,
-  books,
-  cartDetails,
-  usercart,
-  users,
-} from "./placeholder-data";
+import { bookDetails, books, usercart, users } from "./placeholder-data";
 
 async function seedBooks() {
   await sql`DROP TABLE IF EXISTS books CASCADE;`;
@@ -109,6 +103,7 @@ async function seedCartDetails() {
   CREATE TABLE IF NOT EXISTS cartDetails (
     cart_id UUID,
     book_id UUID,
+    price NUMERIC CHECK (price >= 0),
     quantity NUMERIC,
 
     PRIMARY KEY (cart_id, book_id),
@@ -118,16 +113,7 @@ async function seedCartDetails() {
 
 `;
 
-  const insertedcartDetails = await Promise.all(
-    cartDetails.map(async (detail) => {
-      return sql`
-        INSERT INTO cartDetails (cart_id, book_id, quantity)
-        VALUES (${detail.cart_id}, ${detail.book_id}, ${detail.quantity})
-      `;
-    })
-  );
-
-  return insertedcartDetails;
+  return;
 }
 
 async function insertUserDeliveryInfo() {

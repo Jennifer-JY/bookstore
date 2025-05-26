@@ -3,7 +3,7 @@ import Image from "next/image";
 import Pagenation from "./Pagination";
 import Link from "next/link";
 
-const PAGE_SIZE = 1;
+const PAGE_SIZE = 10;
 
 export default async function Result({
   query,
@@ -20,12 +20,15 @@ export default async function Result({
     currentPage,
     PAGE_SIZE
   );
-  const pages = Math.ceil(
-    (await fetchTotalNumItemsFound(query || null)) / PAGE_SIZE
-  );
+
+  const totalNumItems = await fetchTotalNumItemsFound(query || null);
+  const pages = Math.ceil(totalNumItems / PAGE_SIZE);
 
   return (
     <div>
+      <h2 className="text-2xl mb-2">
+        Results: {`${totalNumItems} items found`}
+      </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {books.map((b) => {
           return (

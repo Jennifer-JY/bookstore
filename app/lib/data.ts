@@ -1,5 +1,13 @@
 import postgres from "postgres";
-import { Book, BookData, Cart, ItemInCart, UserDeliveryInfo } from "./types";
+import {
+  Book,
+  BookData,
+  Cart,
+  ItemInCart,
+  PastOrder,
+  PastOrderDisplay,
+  UserDeliveryInfo,
+} from "./types";
 
 export const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -75,12 +83,13 @@ export async function getCartByEmail(email: string): Promise<Cart> {
     const cart = await sql<{ cart_id: string; status: string }[]>`
       SELECT id as cart_id FROM usercart
       WHERE email = ${email}
-      ORDER BY create_date ASC;
+      AND status = 'unpaid'
+      ORDER BY create_date DESC;
     `;
 
     // If there's no cart or the most recent cart is paid,
     // Just treat it as nothing in cart yet
-    if (cart.length === 0 || cart[0].status === "paid") {
+    if (cart.length === 0) {
       return {};
     }
     const items = await sql<ItemInCart[]>`
@@ -163,8 +172,8 @@ export async function storeItemsInCart(
     await Promise.all(
       itemsInCart.map(async (item) => {
         return sql`
-      INSERT INTO cartDetails (cart_id, book_id, quantity)
-      VALUES (${cartId}, ${item.book_id}, ${item.quantity})
+      INSERT INTO cartDetails (cart_id, book_id, quantity, price)
+      VALUES (${cartId}, ${item.book_id}, ${item.quantity}, ${item.price})
       ON CONFLICT (cart_id, book_id) 
       DO UPDATE SET quantity = cartDetails.quantity + ${item.quantity}
     `;
@@ -213,4 +222,83 @@ export async function getPriceIdsByBookIds(bookIds: string[]) {
   WHERE id IN ${sql(bookIds)}
 `;
   return bookRows;
+}
+
+export async function getPastOrders(
+  email: string | null
+): Promise<PastOrder[]> {
+  if (!email) return [];
+
+  try {
+    const result = await sql<
+      {
+        create_date: Date;
+        quantity: number;
+        price: number;
+        author: string;
+        cartid: string;
+        bookid: string;
+        title: string;
+      }[]
+    >`
+      SELECT 
+        uc.id as cartid,
+        uc.create_date, 
+        cd.quantity, 
+        cd.price,
+        b.id as bookid,
+        b.author, 
+        b.title
+      FROM usercart uc
+      JOIN cartDetails cd ON uc.id = cd.cart_id
+      JOIN books b ON b.id = cd.book_id
+      WHERE uc.email = ${email}
+        AND uc.status = 'paid'
+    `;
+
+    const grouped: Record<
+      string,
+      {
+        createDate: Date;
+        items: PastOrderDisplay[];
+        totalPrice: number;
+      }
+    > = {};
+
+    for (const row of result) {
+      if (!grouped[row.cartid]) {
+        grouped[row.cartid] = {
+          createDate: row.create_date,
+          items: [],
+          totalPrice: 0,
+        };
+      }
+
+      const itemTotal = row.price * row.quantity;
+
+      grouped[row.cartid].items.push({
+        bookId: row.bookid,
+        title: row.title,
+        author: row.author,
+        quantity: row.quantity,
+        price: row.price,
+      });
+
+      grouped[row.cartid].totalPrice += itemTotal;
+    }
+
+    const pastOrders: PastOrder[] = Object.entries(grouped).map(
+      ([cartId, data]) => ({
+        cartId,
+        createDate: data.createDate,
+        items: data.items,
+        totalPrice: data.totalPrice,
+      })
+    );
+
+    return pastOrders;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch past orders.");
+  }
 }
