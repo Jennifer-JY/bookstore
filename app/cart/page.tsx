@@ -7,6 +7,7 @@ import { Ubuntu } from "next/font/google";
 
 const ubuntu = Ubuntu({
   weight: "300",
+  subsets: ["latin"],
 });
 
 export default function CartPage() {
