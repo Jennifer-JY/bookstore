@@ -22,7 +22,11 @@ export default function TopBar() {
         )}
       </div>
       <div className="flex gap-3 sm:w-1/8 justify-end">
-        {session === null && <button>Login</button>}
+        {session === null && (
+          <Link href="/login">
+            <button className="cursor-pointer">Login</button>
+          </Link>
+        )}
         {session !== null && (
           <div className="flex flex-row justify-center items-center">
             <Link href={"/account"}>
