@@ -1,5 +1,7 @@
 import Result from "@/components/books/Results";
 import SideNav from "@/components/books/SideNav";
+import ResultSeleton from "@/components/skeletons/booksSkeleton";
+import { Suspense } from "react";
 
 export default async function Books({
   searchParams,
@@ -14,7 +16,9 @@ export default async function Books({
         <SideNav />
       </div>
       <div className="flex-[4]">
-        <Result query={query} page={page} />
+        <Suspense fallback={<ResultSeleton />}>
+          <Result query={query} page={page} />
+        </Suspense>
       </div>
     </div>
   );
