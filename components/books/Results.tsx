@@ -45,7 +45,7 @@ export default async function Result({
                 <div>Title: {b.title}</div>
               </Link>
               <div>by: {b.author}</div>
-              <div>＄{b.price}</div>
+              <div className="text-blue-500 font-bold">＄{b.price}</div>
               <div>
                 {b.stock === 0
                   ? "Sold out"

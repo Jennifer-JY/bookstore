@@ -4,10 +4,12 @@
  * Next.js Learn - Adding Authentication
  */
 "use client";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useActionState } from "react";
 import { authenticate } from "../lib/actions";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useCart } from "../contextAndProvider/cartContext";
 
 export default function Login() {
   const searchParams = useSearchParams();
@@ -16,11 +18,14 @@ export default function Login() {
     authenticate,
     undefined
   );
-
+  const { session } = useCart();
+  if (session?.user) {
+    redirect("/");
+  }
   return (
-    <div className="w-1/2 mx-auto">
+    <div className="w-1/2 mx-auto border p-5 mb-10 border-gray-200">
       <form action={formAction} className="flex flex-col">
-        <label>Email </label>
+        <label htmlFor="email">Email </label>
         <input
           id="email"
           type="email"
@@ -29,7 +34,9 @@ export default function Login() {
           required
           className="border-2 border-gray-100"
         ></input>
-        <label>Password </label>
+        <label htmlFor="password" className="mt-5">
+          Password{" "}
+        </label>
         <input
           id="password"
           type="password"
@@ -46,6 +53,12 @@ export default function Login() {
         >
           Login
         </button>
+        <div>
+          Do not have an account?{" "}
+          <Link href="/register" className="hover:underline">
+            Register
+          </Link>
+        </div>
       </form>
       <div
         className="flex h-8 items-end space-x-1"

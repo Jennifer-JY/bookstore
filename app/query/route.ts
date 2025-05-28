@@ -10,7 +10,7 @@ import { sql } from "../lib/data";
 
 async function listCart() {
   const data = await sql`
-    SELECT * FROM cartDetails
+    SELECT * FROM users
 
   `;
 

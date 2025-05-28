@@ -302,3 +302,28 @@ export async function getPastOrders(
     throw new Error("Failed to fetch past orders.");
   }
 }
+
+export async function storeUser(email: string, password: string) {
+  try {
+    await sql`
+      INSERT INTO users (email, password)
+      VALUES (${email}, ${password})
+    `;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Fail to save this user into database.");
+  }
+}
+
+export async function doesEmailExist(email: string) {
+  try {
+    const result = await sql`
+      SELECT * FROM users
+      WHERE email = ${email}
+    `;
+    return !!result.length;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Fail to check user email.");
+  }
+}
