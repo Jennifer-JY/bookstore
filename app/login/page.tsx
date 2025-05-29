@@ -55,7 +55,10 @@ export default function Login() {
         </button>
         <div>
           Do not have an account?{" "}
-          <Link href="/register" className="hover:underline text-blue-600">
+          <Link
+            href={`/register?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+            className="hover:underline text-blue-600"
+          >
             Register
           </Link>
         </div>

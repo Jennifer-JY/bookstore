@@ -1,16 +1,28 @@
 "use client";
 import { redirect, useSearchParams } from "next/navigation";
 import { register } from "../lib/actions";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { useCart } from "../contextAndProvider/cartContext";
+import { signIn } from "next-auth/react";
 
 export default function Register() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
-  const [errorMessage, formAction, isPending] = useActionState(
+  const [retMessage, formAction, isPending] = useActionState(
     register,
     undefined
   );
+
+  useEffect(() => {
+    if (retMessage?.success) {
+      signIn("credentials", {
+        email: retMessage.signInInfo?.email,
+        password: retMessage.signInInfo?.password,
+        callbackUrl: callbackUrl,
+      });
+    }
+  }, [callbackUrl, retMessage]);
+
   const { session } = useCart();
   if (session?.user) redirect("/");
 
@@ -26,10 +38,10 @@ export default function Register() {
           required
           className="mb-4 p-2 border-2 border-gray-100"
         ></input>
-        {errorMessage?.errors?.email && (
+        {retMessage?.errors?.email && (
           <>
             Error:{" "}
-            {errorMessage.errors.email.map((msg, index) => (
+            {retMessage.errors.email.map((msg, index) => (
               <div className="text-red-500 text-sm mt-1" key={index}>
                 {msg};
               </div>
@@ -46,10 +58,10 @@ export default function Register() {
           minLength={8}
           className="mb-4 p-2 border-2 border-gray-100"
         ></input>
-        {errorMessage?.errors?.password && (
+        {retMessage?.errors?.password && (
           <>
             Error:{" "}
-            {errorMessage.errors.password.map((msg, index) => (
+            {retMessage.errors.password.map((msg, index) => (
               <div className="text-red-500 text-sm mt-1" key={index}>
                 {msg};
               </div>
@@ -66,10 +78,10 @@ export default function Register() {
           minLength={8}
           className="mb-6 p-2 border-2 border-gray-100"
         ></input>
-        {errorMessage?.errors?.confirmPassword && (
+        {retMessage?.errors?.confirmPassword && (
           <>
             Error:{" "}
-            {errorMessage.errors.confirmPassword.map((msg, index) => (
+            {retMessage.errors.confirmPassword.map((msg, index) => (
               <div className="text-red-500 text-sm mt-1" key={index}>
                 {msg};
               </div>
@@ -80,10 +92,10 @@ export default function Register() {
         <button aria-disabled={isPending} className="border border-gray-300">
           Register
         </button>
-        {errorMessage?.errors?.general && (
+        {retMessage?.errors?.general && (
           <>
             Error:{" "}
-            {errorMessage.errors.general.map((msg, index) => (
+            {retMessage.errors.general.map((msg, index) => (
               <div className="text-red-500 text-sm mt-1" key={index}>
                 {msg};
               </div>

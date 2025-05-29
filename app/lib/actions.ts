@@ -17,6 +17,10 @@ type RegisterState = {
     general?: string[];
   };
   success?: boolean;
+  signInInfo?: {
+    email: string;
+    password: string;
+  };
 };
 
 const userRegisterschema = z
@@ -83,37 +87,14 @@ export const register = async (
     // Create the user
     await storeUser(email, hashedPassword);
 
-    // Log new users in
-    const redirectTo = formData.get("redirectTo") || "/";
-
-    await signIn("credentials", {
-      redirect: true,
-      email,
-      password,
-      callbackUrl: redirectTo,
-    });
-    return { success: true };
+    return { success: true, signInInfo: { email: email, password: password } };
   } catch (error) {
-    if (isNextRedirectError(error)) {
-      throw error;
-    }
-
     console.error("Registration error:", error);
     return {
       errors: { general: ["Something went wrong. Please try again."] },
     };
   }
 };
-
-function isNextRedirectError(error: unknown): error is { digest: string } {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "digest" in error &&
-    typeof error.digest === "string" &&
-    error.digest.startsWith("NEXT_REDIRECT")
-  );
-}
 
 export async function authenticate(
   prevState: string | undefined,

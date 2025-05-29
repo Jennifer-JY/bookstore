@@ -70,7 +70,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     // run once after log in
     async signIn({ user }) {
-      console.log(user);
       const email = user.email;
       if (!email) return false;
 
