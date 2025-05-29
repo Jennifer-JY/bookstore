@@ -22,13 +22,12 @@ export async function POST(request: Request) {
     if (event.type === "checkout.session.completed") {
       const checkoutSession = event.data.object as Stripe.Checkout.Session;
 
-      console.log("Payment succeeded:", checkoutSession.customer_email);
       await updateCartStatusAfterSucsPayment(
         checkoutSession.id,
         checkoutSession.customer_email ?? ""
       );
     } else {
-      console.log("Unhandled event type:", event.type);
+      console.error("Unhandled event type:", event.type);
     }
 
     return new Response(JSON.stringify({ received: true }), {

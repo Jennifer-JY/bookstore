@@ -13,7 +13,7 @@ type Params = {
 
 export default function BookPage() {
   const { book_id } = useParams<Params>();
-  const { itemsInCart, addItemToCart } = useCart();
+  const { addItemToCart } = useCart();
   const [bookDetail, setBookDetail] = useState<BookData | null>(null);
 
   useEffect(() => {
@@ -41,7 +41,6 @@ export default function BookPage() {
     };
     addItemToCart(itemToAdd);
   };
-  console.log(itemsInCart);
 
   return (
     <div className="flex flex-row m-4 gap-4">

@@ -23,6 +23,6 @@ export async function POST(request: Request) {
     return Response.json({ error: "User not logged in." }, { status: 403 });
   }
   const res = await storeItemsInCart(cartId, session.user.email, itemsInCart);
-  console.log("after storing items", res);
+
   return Response.json({ cartId: res.cartId });
 }

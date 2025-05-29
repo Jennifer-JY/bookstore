@@ -49,13 +49,13 @@ export default function Login() {
         <input type="hidden" name="redirectTo" value={callbackUrl} />
         <button
           aria-disabled={isPending}
-          className="cursor-pointer mt-10 border-2 border-gray-100"
+          className="cursor-pointer mt-10 border-2 border-gray-300"
         >
           Login
         </button>
         <div>
           Do not have an account?{" "}
-          <Link href="/register" className="hover:underline">
+          <Link href="/register" className="hover:underline text-blue-600">
             Register
           </Link>
         </div>
@@ -78,7 +78,7 @@ export default function Login() {
       <button
         type="button"
         onClick={() => signIn("google", { callbackUrl: callbackUrl })}
-        className="mt-4 border-2 border-gray-100 p-2"
+        className="mt-4 border-2  p-2 border-blue-400"
       >
         Sign in with Google
       </button>

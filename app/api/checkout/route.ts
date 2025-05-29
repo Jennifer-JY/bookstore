@@ -25,7 +25,7 @@ const UserDeliveryInfoSchema = z.object({
 
 export async function POST(request: Request) {
   const body = await request.json();
-  console.log(body);
+
   const { items, cartId, userDelivInfo } = body;
 
   const usersession = await auth();

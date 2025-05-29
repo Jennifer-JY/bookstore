@@ -35,7 +35,6 @@ export default function CartContextProvider({
     }
   }, [session]);
 
-  console.log(itemsInCart);
   const addItemToCart = (item: ItemInCart) => {
     let updatedItems;
     const existing = itemsInCart.find((i) => i.book_id === item.book_id);
@@ -57,7 +56,7 @@ export default function CartContextProvider({
     }
 
     setItemsInCart(updatedItems);
-    console.log(updatedItems);
+
     fetch("/api/cart", {
       method: "POST",
       headers: {
@@ -69,7 +68,6 @@ export default function CartContextProvider({
       }),
     })
       .then((res) => {
-        console.log(res);
         return res.json();
       })
       .then((data: Cart) => {

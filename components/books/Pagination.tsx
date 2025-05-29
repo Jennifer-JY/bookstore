@@ -28,9 +28,9 @@ export default function Pagenation({ pages = 1 }: { pages?: number }) {
     router.push(`${pathname}?${newSearchParams.toString()}`);
   };
   const pageNumbers = showPageNums(currentPage, pages);
-  console.log(pageNumbers);
+
   return (
-    <div className="flex justify-center items-center mt-4">
+    <div className="flex justify-center items-center mt-4 m-4">
       <button
         disabled={currentPage === 1}
         onClick={handleClickPreviousPage}
@@ -114,7 +114,7 @@ function showPageNums(curPage: number, totalPage: number) {
       }
     }
   }
-  console.log("front: " + pages);
+
   // Itself
   pages.push(curPage);
 

@@ -83,15 +83,14 @@ export const register = async (
     // Create the user
     await storeUser(email, hashedPassword);
 
-    console.log("Redirecting...");
     // Log new users in
     const redirectTo = formData.get("redirectTo") || "/";
-    console.log("redirecr to: ", redirectTo);
+
     await signIn("credentials", {
       redirect: true,
       email,
       password,
-      callbackUrl: "/",
+      callbackUrl: redirectTo,
     });
     return { success: true };
   } catch (error) {
