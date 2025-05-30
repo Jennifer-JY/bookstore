@@ -28,6 +28,12 @@ This project is built using:
 
 - Stripe
 
+- PostgreSQL
+
+Includes custom API routes (via Next.js) to handle backend logic such as user authentication, book detail fetching, cart management, and payment session creation.
+
+Frontend errors are displayed with user-friendly messages, and server-side issues are logged via `console.error`.
+
 # Installation
 
 ```bash
