@@ -30,9 +30,11 @@ This project is built using:
 
 - PostgreSQL
 
-Includes custom API routes (via Next.js) to handle backend logic such as user authentication, book detail fetching, cart management, and payment session creation.
+It includes custom API routes (via Next.js) to handle backend logic such as user authentication, book detail fetching, cart management, and payment session creation.
 
 Frontend errors are displayed with user-friendly messages, and server-side issues are logged via `console.error`.
+
+**Deployed on [Vercel](https://bookstore-theta-one.vercel.app/)**
 
 # Installation
 
@@ -43,7 +45,7 @@ npm install
 # Usage
 
 ```bash
-nmp run dev
+npm run dev
 ```
 
 # License
