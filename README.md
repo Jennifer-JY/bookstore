@@ -1,5 +1,7 @@
 # Bookdrop
 
+_This project is a work-in-progress. I’m continuously learning and improving it_
+
 ## Description
 
 Bookdrop is a personal project — an online bookstore where users can:
