@@ -50,7 +50,7 @@ Frontend errors are displayed with user-friendly messages, and server-side issue
 
 ## 🚀 Live Demo
 
-Deployed on [Vercel](https://bookstore-theta-one.vercel.app/)\*\*
+Deployed on [Vercel](https://bookstore-theta-one.vercel.app/)
 
 ## Installation
 
