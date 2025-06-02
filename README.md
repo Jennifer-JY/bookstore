@@ -16,6 +16,20 @@ Bookdrop is a personal project — an online bookstore where users can:
 
 - Pay securely via Stripe
 
+## 📚 Usage Tips
+
+- Use the search bar to find books by title or author.
+
+- Hit Enter without typing to view all books in the demo database.
+
+- The app currently includes 12 sample books, so some searches may return no results.
+
+- The UI is responsive and works across devices.
+
+- To add books to the cart or complete checkout, you must log in or register first.
+
+## 🛠️ Tech Stack
+
 This project is built using:
 
 - Next.js
