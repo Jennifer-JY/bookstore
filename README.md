@@ -48,25 +48,27 @@ It includes custom API routes (via Next.js) to handle backend logic such as user
 
 Frontend errors are displayed with user-friendly messages, and server-side issues are logged via `console.error`.
 
-**Deployed on [Vercel](https://bookstore-theta-one.vercel.app/)**
+## 🚀 Live Demo
 
-# Installation
+Deployed on [Vercel](https://bookstore-theta-one.vercel.app/)\*\*
+
+## Installation
 
 ```bash
 npm install
 ```
 
-# Usage
+## Usage
 
 ```bash
 npm run dev
 ```
 
-# License
+## License
 
 MIT
 
-# Project status
+## Project status
 
 👩🏻‍💻 **In progress**
 
