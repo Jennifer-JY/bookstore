@@ -30,8 +30,8 @@ Bookdrop is a personal project — an online bookstore where users can:
 
 - The UI is responsive and works across devices.
 
-– Add books to your cart and complete checkout using Stripe.
-To test Stripe checkout, use card number 4242 4242 4242 4242, expiry 04/29, CVC 424, and ZIP code 4242 — all values are repeating 42s.
+- Add books to your cart and complete checkout using Stripe.
+  To test Stripe checkout, use card number 4242 4242 4242 4242, expiry 04/29, CVC 424, and ZIP code 4242 — all values are repeating 42s.
 
 ## 🛠️ Tech Stack
 
