@@ -6,7 +6,7 @@ _This project is a work-in-progress. I’m continuously learning and improving i
 
 Bookdrop is a personal project — an online bookstore where users can:
 
-- Register and log in to their accounts
+- Register and log in to their accounts (Google Sign-In supported — test accounts only at this stage)
 
 - View past orders
 
