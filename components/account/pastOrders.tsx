@@ -9,7 +9,7 @@ const fredoka = Fredoka({
   display: "swap",
 });
 
-export default async function PastOrders() {
+export default async function PastOrdersDisplay() {
   const session = await auth();
   const pastOrders = await getPastOrders(session?.user.email || null);
 
