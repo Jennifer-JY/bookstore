@@ -8,6 +8,9 @@ import {
   PastOrderDisplay,
   UserDeliveryInfo,
 } from "./types";
+import { signIn } from "@/auth";
+import { randomBytes } from "crypto";
+import bcrypt from "bcryptjs";
 
 export const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -312,6 +315,44 @@ export async function storeUser(email: string, password: string) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Fail to save this user into database.");
+  }
+}
+
+export async function createGuestUser() {
+  try {
+    const prefix =
+      new Date().toISOString().slice(0, 10).replace(/-/g, "") +
+      randomBytes(6).toString("base64url");
+    const email = prefix + process.env.GUEST_EMAIL!;
+    const password = process.env.GUEST_PASSWORD!;
+
+    await sql.begin(async (sql) => {
+      // Clean up previous data first
+      await sql`DELETE FROM usercart WHERE email = ${email}`;
+      await sql`DELETE FROM user_delivery_infos WHERE email = ${email}`;
+      await sql`DELETE FROM users WHERE email = ${email}`;
+
+      // Insert new guest user
+      await sql`
+        INSERT INTO users (email, password)
+        VALUES (${email}, ${await bcrypt.hash(password, 10)});
+      `;
+    });
+    console.log("the email: " + email);
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    // Handle login error because it will not throw an error itself
+    if (result?.error) {
+      throw new Error("Guest login failed: " + result.error);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false };
   }
 }
 

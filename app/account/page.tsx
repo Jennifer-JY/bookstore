@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { getPastOrders } from "../lib/data";
 import { Suspense } from "react";
-import PastOrders from "@/components/account/pastOrders";
+import PastOrders from "@/components/account/PastOrders";
 
 export default async function AccountPage() {
   const session = await auth();

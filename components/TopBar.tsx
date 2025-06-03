@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { useCart } from "@/app/contextAndProvider/cartContext";
 import { signOut } from "next-auth/react";
+import GuestLoginBtn from "./authentication/GuestLoginBtn";
 
 export default function TopBar() {
   const { session, itemsInCart } = useCart();
@@ -21,11 +22,14 @@ export default function TopBar() {
           </Suspense>
         )}
       </div>
-      <div className="flex gap-3 sm:w-1/8 justify-end">
+      <div className="flex gap-3  justify-end">
         {session === null && (
-          <Link href="/login">
-            <button className="cursor-pointer">Login</button>
-          </Link>
+          <div className="flex items-center gap-3">
+            <GuestLoginBtn />
+            <Link href="/login">
+              <button className="cursor-pointer">Login</button>
+            </Link>
+          </div>
         )}
         {session !== null && (
           <div className="flex flex-row justify-center items-center">
