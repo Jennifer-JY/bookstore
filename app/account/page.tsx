@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { getPastOrders } from "../lib/data";
 import { Suspense } from "react";
-import PastOrdersDisplay from "@/components/account/PastOrders";
+import PastOrders from "@/components/account/OrderHistory";
 
 export default async function AccountPage() {
   const session = await auth();
@@ -14,7 +14,7 @@ export default async function AccountPage() {
         {pastOrders.length !== 0 && <h2>Your Past Orders:</h2>}
         {pastOrders.length === 0 && <h2>You do not have any past orders.</h2>}
         <Suspense>
-          <PastOrdersDisplay />
+          <PastOrders />
         </Suspense>
       </div>
     </div>
