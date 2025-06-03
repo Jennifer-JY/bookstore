@@ -30,7 +30,7 @@ Bookdrop is a personal project — an online bookstore where users can:
 
 - The UI is responsive and works across devices.
 
-- To add books to the cart or complete checkout.
+- To add books to the cart and complete checkout via Stripe.
 
 ## 🛠️ Tech Stack
 
