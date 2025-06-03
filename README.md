@@ -20,6 +20,8 @@ Bookdrop is a personal project — an online bookstore where users can:
 
 ## 📚 Usage Tips
 
+- Press the "Try it out as guest" button to log in with a temporary account and try out the app.
+
 - Use the search bar to find books by title or author.
 
 - Hit Enter without typing to view all books in the demo database.
@@ -28,7 +30,7 @@ Bookdrop is a personal project — an online bookstore where users can:
 
 - The UI is responsive and works across devices.
 
-- To add books to the cart or complete checkout, you must log in or register first.
+- To add books to the cart or complete checkout.
 
 ## 🛠️ Tech Stack
 
