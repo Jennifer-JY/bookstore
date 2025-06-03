@@ -18,7 +18,7 @@ export default function Home() {
         <Search />
       </Suspense>
 
-      <nav className="w-1/2 mt-4 flex flex-col sm:justify-around sm:flex-row">
+      <nav className="w-1/2 mt-10 flex flex-col sm:justify-around sm:flex-row">
         <Link
           href={"/books?query=fiction"}
           className="mx-auto hover:underline font-semibold"

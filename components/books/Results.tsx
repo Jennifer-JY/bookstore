@@ -25,8 +25,8 @@ export default async function Result({
   const pages = Math.ceil(totalNumItems / PAGE_SIZE);
 
   return (
-    <div>
-      <h2 className="text-2xl mb-2">
+    <div className="p-5">
+      <h2 className="text-2xl mb-5">
         Results: {`${totalNumItems} items found`}
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">

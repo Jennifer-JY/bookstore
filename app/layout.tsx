@@ -24,10 +24,10 @@ export default async function RootLayout({
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         />
       </head>
-      <body>
+      <body className="min-h-screen flex flex-col">
         <CartContextProvider session={session}>
           <header>
-            <div className="bg-green-300 relative notification-banner">
+            <div className="bg-[#F3DFA2] relative notification-banner">
               <span className="text-left sm:block sm:text-center font-medium">
                 Free shipping on orders over $50
               </span>
@@ -39,11 +39,10 @@ export default async function RootLayout({
             <TopBar />
           </header>
 
-          {children}
+          <main className="flex-grow pt-10">{children}</main>
         </CartContextProvider>
 
-        <hr className="ml-4 mr-4 mb-4 border-t border-gray-200"></hr>
-        <footer className="mx-auto flex flex-col w-1/2 items-center sm:flex-row sm:justify-around">
+        <footer className="bg-[#EFE6DD] mx-auto flex flex-col w-full items-center sm:flex-row sm:justify-center sm:items-start gap-8 p-4">
           <section>
             <h2 className="font-medium">Bookdrop</h2>
             <div className="flex flex-col">
