@@ -1,70 +1,48 @@
-"use client";
 import Image from "next/image";
-import { useCart } from "@/app/contextAndProvider/cartContext";
-import { BookData, ItemInCart } from "@/app/lib/types";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-
-const DEFAULT_ADD_QUANTITY_AFTER_CLICKING_BUTTON = 1;
+import { getBookById } from "@/app/lib/data";
+import AddBookToCartBtn from "@/components/books/AddToCarBtn";
 
 type Params = {
   book_id: string;
 };
 
-export default function BookPage() {
-  const { book_id } = useParams<Params>();
-  const { addItemToCart } = useCart();
-  const [bookDetail, setBookDetail] = useState<BookData | null>(null);
-
-  useEffect(() => {
-    const fetchBook = async () => {
-      const res = await fetch(`/api/books/${book_id}`);
-      if (!res.ok) {
-        console.error("Failed to fetch book");
-        return;
-      }
-      const data: BookData = await res.json();
-      setBookDetail(data);
-    };
-
-    fetchBook();
-  }, [book_id]);
-
-  const handleAddToCart = async () => {
-    if (!bookDetail) return;
-    const itemToAdd: ItemInCart = {
-      book_id: book_id,
-      title: bookDetail.title,
-      author: bookDetail.author,
-      quantity: DEFAULT_ADD_QUANTITY_AFTER_CLICKING_BUTTON,
-      price: bookDetail.price,
-    };
-    addItemToCart(itemToAdd);
-  };
+export default async function BookPage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const resolvedParams = await params;
+  const book_id = resolvedParams.book_id;
+  const bookDetail = await getBookById(book_id);
 
   return (
     <div className="flex flex-row m-4 gap-4">
       {book_id && (
         <Image
-          width={141}
+          width={155}
           height={225}
           alt="bookcover display"
           src={`/bookCovers/${book_id}.png`}
+          className="object-cover"
         />
       )}
       <div>
         <h3 className="font-bold">{bookDetail?.title}</h3>
         <div>by {bookDetail?.author}</div>
         <div className="">
-          Published date: {bookDetail?.published_date.toString()}
+          Published date:{" "}
+          {bookDetail
+            ? new Date(bookDetail?.published_date).toLocaleDateString("en-AU", {
+                year: "numeric",
+                month: "2-digit",
+              })
+            : ""}
         </div>
         <hr className="mt-4 mr-4 mb-4 border-t border-gray-200"></hr>
         <h4>Introduction</h4>
         <p>{bookDetail?.introduction}</p>
         <hr className="mt-4 mr-4 mb-4 border-t border-gray-200"></hr>
-        <button className="p-3 border-2 mt-3" onClick={handleAddToCart}>
-          Add to Cart
-        </button>
+        <AddBookToCartBtn bookDetail={bookDetail} />
       </div>
     </div>
   );
