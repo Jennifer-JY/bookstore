@@ -10,6 +10,7 @@ import { authenticate } from "../lib/actions";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useCart } from "../contextAndProvider/cartContext";
+import GuestLoginBtn from "@/components/authentication/GuestLoginBtn";
 
 export default function Login() {
   const searchParams = useSearchParams();
@@ -32,7 +33,7 @@ export default function Login() {
           name="email"
           placeholder="Enter your email address"
           required
-          className="border-2 border-gray-100"
+          className="border-2 border-gray-100 p-2"
         ></input>
         <label htmlFor="password" className="mt-5">
           Password{" "}
@@ -44,12 +45,12 @@ export default function Login() {
           placeholder="Enter password"
           required
           minLength={6}
-          className="border-2 border-gray-100"
+          className="border-2 border-gray-100 p-2"
         ></input>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
         <button
           aria-disabled={isPending}
-          className="cursor-pointer mt-10 border-2 border-gray-300"
+          className="h-10 cursor-pointer mt-10 border-2 border-gray-300 font-semibold"
         >
           Login
         </button>
@@ -85,6 +86,8 @@ export default function Login() {
       >
         Sign in with Google
       </button>
+      <div className="mt-4 mb-3">OR</div>
+      <GuestLoginBtn />
     </div>
   );
 }
