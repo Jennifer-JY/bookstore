@@ -1,6 +1,6 @@
 import Result from "@/components/books/Results";
 import SideNav from "@/components/books/SideNav";
-import ResultSeleton from "@/components/skeletons/booksSkeleton";
+import ResultSeleton from "@/components/skeletons/BookResultSkeleton";
 import { Suspense } from "react";
 
 export default async function Books({
