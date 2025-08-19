@@ -77,7 +77,7 @@ export default function Login() {
         )}
       </div>
 
-      <div>OR</div>
+      <p>OR</p>
 
       <button
         type="button"
@@ -86,7 +86,8 @@ export default function Login() {
       >
         Sign in with Google
       </button>
-      <div className="mt-4 mb-3">OR</div>
+
+      <p className="mt-4 mb-3">OR</p>
       <GuestLoginBtn />
     </div>
   );
