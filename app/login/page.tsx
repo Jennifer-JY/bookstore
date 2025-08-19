@@ -7,7 +7,7 @@
 import { redirect, useSearchParams } from "next/navigation";
 import { useActionState } from "react";
 import { authenticate } from "../lib/actions";
-import { signIn } from "next-auth/react";
+// import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useCart } from "../contextAndProvider/cartContext";
 import GuestLoginBtn from "@/components/authentication/GuestLoginBtn";
@@ -54,7 +54,7 @@ export default function Login() {
         >
           Login
         </button>
-        <div>
+        <div className="flex items-center justify-center space-x-2">
           Do not have an account?{" "}
           <Link
             href={`/register?callbackUrl=${encodeURIComponent(callbackUrl)}`}
@@ -77,7 +77,7 @@ export default function Login() {
         )}
       </div>
 
-      <p>OR</p>
+      {/*<p>OR</p>
 
       <button
         type="button"
@@ -85,9 +85,9 @@ export default function Login() {
         className="mt-4 border-2  p-2 border-blue-400"
       >
         Sign in with Google
-      </button>
+      </button>*/}
 
-      <p className="mt-4 mb-3">OR</p>
+      <p className="mb-3">OR</p>
       <GuestLoginBtn />
     </div>
   );
