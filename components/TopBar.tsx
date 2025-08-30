@@ -73,7 +73,7 @@ export default function TopBar() {
 
             {/* Badge */}
             {itemsInCart.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
+              <span className="absolute -top-3 md:right-5 right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
                 {itemsInCart.length}
               </span>
             )}

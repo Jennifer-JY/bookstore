@@ -52,6 +52,16 @@ export default function CartPage() {
     router.push(data.url);
   };
 
+  const total = itemsInCart.reduce(
+    (sum, item) => sum + item.price * Number(item.quantity),
+    0
+  );
+
+  const numItems = itemsInCart.reduce(
+    (sum, item) => sum + Number(item.quantity),
+    0
+  );
+
   return (
     <>
       <h2 className="m-4 text-2xl">Cart</h2>
@@ -95,6 +105,10 @@ export default function CartPage() {
         </div>
         {itemsInCart.length > 0 && (
           <div className="sm:w-1/3 sm:mx-auto">
+            <div className="flex gap-4 mt-4 text-3xl font-semibold mb-6">
+              <span>Total{` (${numItems} items)`}:</span>
+              <span>${total.toFixed(2)}</span>
+            </div>
             <form className="flex flex-col mb-8 w-full">
               <div className="flex flex-col">
                 <label>Recipient Name</label>
@@ -151,8 +165,9 @@ export default function CartPage() {
             )}
 
             <button
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
+              className="w-full bg-[#21B6A8] hover:bg-[#116530] text-white font-semibold py-2 px-4 rounded-md transition duration-200"
               onClick={handleCheckout}
+              title="Checkout"
               type="button"
             >
               Checkout

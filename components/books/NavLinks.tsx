@@ -13,7 +13,7 @@ export default function NavLinks() {
     { name: "Non-fiction", href: "/books?query=non-fiction" },
   ];
   return (
-    <div className="flex flex-row gap-5 justify-between w-full lg:flex-col">
+    <div className="flex flex-row justify-start gap-y-3 w-full lg:flex-col m-3 p-5 inset-shadow-sm  border-gray-400 shadow-sm h-full pl-4">
       {links.map((l) => {
         return (
           <Link
