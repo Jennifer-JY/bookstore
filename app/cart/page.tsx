@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useCart } from "../contextAndProvider/cartContext";
-import Image from "next/image";
+import { Image } from "@imagekit/next";
 import { useState } from "react";
 
 export default function CartPage() {
@@ -72,11 +72,15 @@ export default function CartPage() {
               <div key={item.book_id} className="border border-gray-400 p-4">
                 <div className="flex flex-row gap-6">
                   <Image
+                    urlEndpoint="https://ik.imagekit.io/iqam99dxz"
+                    src={`/${item.book_id}.png`}
                     width={141}
                     height={225}
-                    alt="bookcover display"
-                    src={`/bookCovers/${item.book_id}.png`}
-                  ></Image>
+                    alt="book cover display"
+                    loading="lazy" // Use "eager" to load immediately. `lazy` is the default value
+                    className="w-full max-w-[310px] sm:max-w-[260px] lg:max-w-[310px] h-auto object-cover"
+                  />
+
                   <div>
                     <div className="mb-4">
                       {item.title} by {item.author}
