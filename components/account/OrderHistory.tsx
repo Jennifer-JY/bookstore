@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
-import Image from "next/image";
 import { Fredoka } from "next/font/google";
 import { getPastOrders } from "@/app/lib/data";
+import { Image } from "@imagekit/next";
 
 const fredoka = Fredoka({
   subsets: ["latin"],
@@ -39,12 +39,15 @@ export default async function PastOrders() {
                     className="w-[150px] flex flex-col items-center"
                   >
                     <Image
-                      src={`/bookCovers/${item.bookId}.png`}
-                      alt="book cover display"
+                      urlEndpoint="https://ik.imagekit.io/iqam99dxz"
+                      src={`/${item.bookId}.png`}
                       width={141}
                       height={225}
-                      className="rounded-md shadow-sm object-cover"
+                      alt="book cover display"
+                      loading="lazy" // Use "eager" to load immediately. `lazy` is the default value
+                      className="w-full max-w-[310px] sm:max-w-[260px] lg:max-w-[310px] h-auto object-cover"
                     />
+
                     <div className="mt-2 text-center text-sm font-medium text-gray-700">
                       {item.title}
                     </div>
