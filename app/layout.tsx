@@ -38,7 +38,7 @@ export default async function RootLayout({
             <TopBar />
           </header>
 
-          <main className="flex-grow pt-10">{children}</main>
+          <main className="flex-grow">{children}</main>
         </CartContextProvider>
 
         <footer className="bg-[#EFE6DD] mx-auto flex flex-col w-full items-center sm:flex-row sm:justify-center sm:items-start gap-8 p-4">

@@ -12,43 +12,58 @@ const fredoka = Fredoka({
 export default async function PastOrders() {
   const session = await auth();
   const pastOrders = await getPastOrders(session?.user.email || null);
-
   return (
-    <div>
+    <div className="space-y-6">
       {pastOrders.map((order) => {
         return (
           <div
             key={order.cartId}
-            className="border border-solid border-black p-4 mb-4"
+            className="rounded-xl border border-gray-200 bg-white shadow-sm p-6"
           >
-            <h3>CartId: {order.cartId}</h3>
-            <h4 className={`${fredoka.className}`}>
-              Created at {order.createDate.toDateString()}
-            </h4>
-            <div className="flex flex-row flex-wrap flex-1">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">
+                Order #{order.cartId}
+              </h3>
+              <h4 className={`${fredoka.className} text-lg text-gray-500`}>
+                {order.createDate.toDateString()}
+              </h4>
+            </div>
+
+            {/* Items grid */}
+            <div className="flex flex-wrap gap-6">
               {order.items.map((item) => {
                 return (
                   <div
                     key={item.bookId}
-                    className="w-[150px] m-2 flex flex-col items-center"
+                    className="w-[150px] flex flex-col items-center"
                   >
                     <Image
                       src={`/bookCovers/${item.bookId}.png`}
                       alt="book cover display"
                       width={141}
                       height={225}
-                      className="object-cover"
-                    ></Image>
-                    <div>
-                      {item.title} by {item.author}
+                      className="rounded-md shadow-sm object-cover"
+                    />
+                    <div className="mt-2 text-center text-sm font-medium text-gray-700">
+                      {item.title}
                     </div>
-                    <div className="self-start text-sm">${item.price}</div>
+                    <div className="text-xs text-gray-500">
+                      by {item.author}
+                    </div>
+                    <div className="mt-1 text-sm font-semibold text-gray-900">
+                      ${item.price} × {item.quantity}
+                    </div>
                   </div>
                 );
               })}
             </div>
-            <div className="text-blue-500 font-bold">
-              Total: ${order.totalPrice}
+
+            {/* Footer / Total */}
+            <div className="flex justify-end mt-6">
+              <div className="text-3xl font-bold">
+                Total: ${order.totalPrice}
+              </div>
             </div>
           </div>
         );

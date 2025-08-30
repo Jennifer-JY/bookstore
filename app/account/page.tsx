@@ -11,8 +11,8 @@ export default async function AccountPage() {
     <div className="m-5">
       <div>Hello {session?.user.name || "customer"},</div>
       <div>
-        <h2 className="text-2xl my-7">Past Orders</h2>
-        {pastOrders.length !== 0 && <h2>Your Past Orders:</h2>}
+        <h2 className="text-2xl font-bold my-7">Past Orders</h2>
+
         {pastOrders.length === 0 && <h2>You do not have any past orders.</h2>}
         <Suspense>
           <PastOrders />

@@ -2,7 +2,7 @@ import { CategoryBadge } from "@/components/homepage/CategoryBadge";
 
 export default function Home() {
   return (
-    <div className="mb-5 sm:mb-20 p-4 flex flex-row items-center justify-center gap-x-28 mt-24">
+    <div className="mb-5 sm:mb-20 p-4 flex flex-wrap sm:flex-row items-center justify-center gap-x-28 mt-24">
       <CategoryBadge
         src="/alien-2-svgrepo-com.svg"
         label="Fiction"

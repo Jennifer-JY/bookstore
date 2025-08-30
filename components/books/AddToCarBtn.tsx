@@ -30,7 +30,12 @@ export default function AddBookToCartBtn({
   return (
     <>
       {bookDetail && (
-        <button className="p-3 border-2 mt-3" onClick={handleAddToCart}>
+        <button
+          className="hover:cursor-pointer w-fit bg-[#21B6A8] hover:bg-[#116530] text-white font-medium py-2.5 px-4 rounded transition-colors"
+          title="Add to cart"
+          aria-label="add-to-cart"
+          onClick={handleAddToCart}
+        >
           Add to Cart
         </button>
       )}
