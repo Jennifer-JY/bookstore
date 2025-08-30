@@ -63,13 +63,13 @@ export default function CartPage() {
   );
 
   return (
-    <>
-      <h2 className="m-4 text-2xl">Cart</h2>
-      <div className="flex sm:flex-row flex-col m-4">
-        <div className="flex flex-col gap-10">
+    <div className="m-6">
+      <h2 className="text-2xl mb-6">Cart</h2>
+      <div className="flex md:flex-row flex-col gap-10">
+        <div className="flex-1 flex flex-col gap-10">
           {itemsInCart.map((item) => {
             return (
-              <div key={item.book_id} className="border border-gray-400 p-4">
+              <div key={item.book_id}>
                 <div className="flex flex-row gap-6">
                   <Image
                     urlEndpoint="https://ik.imagekit.io/iqam99dxz"
@@ -78,38 +78,48 @@ export default function CartPage() {
                     height={225}
                     alt="book cover display"
                     loading="lazy" // Use "eager" to load immediately. `lazy` is the default value
-                    className="w-full max-w-[310px] sm:max-w-[260px] lg:max-w-[310px] h-auto object-cover"
+                    className="w-full max-w-[150px] sm:max-w-[150px] lg:max-w-[150px] h-auto object-cover"
                   />
 
                   <div>
                     <div className="mb-4">
                       {item.title} by {item.author}
                     </div>
-                    <div className="flex flex-row gap-4">
+                    <div className="flex items-center gap-2">
                       <button
-                        className="border w-7"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition"
                         onClick={() => addItemToCart({ ...item, quantity: -1 })}
                       >
-                        -
+                        {item.quantity > 1 ? (
+                          "-"
+                        ) : (
+                          <i className="fa-solid fa-trash-can"></i>
+                        )}
                       </button>
-                      {item.quantity}
+
+                      <span className="w-10 h-8 flex items-center justify-center  text-gray-800 font-medium">
+                        {item.quantity}
+                      </span>
+
                       <button
-                        className="border w-7"
+                        className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition"
                         onClick={() => addItemToCart({ ...item, quantity: 1 })}
                       >
                         +
                       </button>
                     </div>
+
                     <div className="mt-7">$ {item.price}</div>
                   </div>
                 </div>
+                <hr className="mt-4 border-t-1 border-gray-200" />
               </div>
             );
           })}
         </div>
         {itemsInCart.length > 0 && (
-          <div className="sm:w-1/3 sm:mx-auto">
-            <div className="flex gap-4 mt-4 text-3xl font-semibold mb-6">
+          <div className="md:w-1/3 flex-1 px-10">
+            <div className="flex gap-4 text-3xl font-semibold mb-6">
               <span>Total{` (${numItems} items)`}:</span>
               <span>${total.toFixed(2)}</span>
             </div>
@@ -180,6 +190,6 @@ export default function CartPage() {
         )}
         {itemsInCart.length === 0 && <div>Your cart is empty.</div>}
       </div>
-    </>
+    </div>
   );
 }
