@@ -1,5 +1,4 @@
 "use client";
-import { usePathname } from "next/navigation";
 import Search from "./Search";
 import StoreIcon from "./StoreIcon";
 import { Suspense } from "react";
@@ -10,58 +9,76 @@ import GuestLoginBtn from "./authentication/GuestLoginBtn";
 
 export default function TopBar() {
   const { session, itemsInCart } = useCart();
-  const pathname = usePathname();
-  const isHidden = pathname !== "/";
+
   return (
-    <div className="flex flex-row justify-between items-center p-4">
-      {isHidden && <StoreIcon />}
-      <div className="w-3/5">
-        {isHidden && (
-          <Suspense>
-            <Search />
-          </Suspense>
-        )}
-      </div>
+    <div className="flex flex-row justify-between items-center p-4 bg-[#59981a] text-white text-base">
+      <StoreIcon />
+
+      <Suspense>
+        <Search />
+      </Suspense>
+
+      {session === null && <GuestLoginBtn />}
       <div className="flex gap-3  justify-end">
         {session === null && (
-          <div className="flex items-center gap-3">
-            <GuestLoginBtn />
-            <Link href="/login">
-              <button className="cursor-pointer">Login</button>
-            </Link>
-          </div>
+          <Link
+            href="/login"
+            className="flex items-center gap-3 justify-center"
+          >
+            <button className="cursor-pointer">
+              <i className="fa-regular fa-circle-user mr-1"></i>
+              <span className="hover:underline">Log In</span>
+            </button>
+          </Link>
         )}
         {session !== null && (
-          <div className="flex flex-row justify-center items-center">
+          <div className="flex flex-row justify-center items-center gap-x-2">
             <Link href={"/account"}>
-              <button className="mr-2 cursor-pointer">
-                <i className="fa-regular fa-circle-user text-2xl"></i>
-              </button>
               <button
-                className="cursor-pointer"
-                onClick={async () => {
-                  await signOut({ redirect: true, callbackUrl: "/" });
-                }}
+                className="mr-2 cursor-pointer"
+                title="Go to My account"
+                aria-label="my-account"
               >
-                SignOut
+                <i className="fa-regular fa-circle-user mr-1"></i>
+                <span className="hover:underline hidden sm:inline">
+                  My account
+                </span>
               </button>
             </Link>
+            <button
+              className="cursor-pointer"
+              aria-label="sign-out"
+              title="Sign out"
+              onClick={async () => {
+                await signOut({ redirect: true, callbackUrl: "/" });
+              }}
+            >
+              <i className="fa-solid fa-arrow-right-from-bracket mr-1"></i>
+              <span className="hover:underline hidden sm:inline">Sign Out</span>
+            </button>
           </div>
         )}
 
-        <Link href="/cart" className="relative inline-block">
-          {/* Cart Icon */}
-          <button className="cursor-pointer">
-            <i className="fa-solid fa-cart-shopping text-xl"></i>
-          </button>
+        {session !== null && (
+          <Link href="/cart" className="relative inline-block">
+            {/* Cart Icon */}
+            <button
+              className="cursor-pointer"
+              aria-label="go-to-cart"
+              title="Go to cart"
+            >
+              <i className="fa-solid fa-cart-shopping mr-1"></i>
+              <span className="hover:underline hidden sm:inline">Cart</span>
+            </button>
 
-          {/* Badge */}
-          {itemsInCart.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
-              {itemsInCart.length}
-            </span>
-          )}
-        </Link>
+            {/* Badge */}
+            {itemsInCart.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
+                {itemsInCart.length}
+              </span>
+            )}
+          </Link>
+        )}
       </div>
     </div>
   );

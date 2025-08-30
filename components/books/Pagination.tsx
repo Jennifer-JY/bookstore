@@ -7,7 +7,7 @@ export default function Pagenation({ pages = 1 }: { pages?: number }) {
   const pathname = usePathname();
   // Get the current page number
   const searchParams = useSearchParams();
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") || 1;
   const pageNum = Number(page);
   const currentPage = Number.isInteger(pageNum) && pageNum > 0 ? pageNum : 1;
 
