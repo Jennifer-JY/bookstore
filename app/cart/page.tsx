@@ -3,12 +3,6 @@ import { useRouter } from "next/navigation";
 import { useCart } from "../contextAndProvider/cartContext";
 import Image from "next/image";
 import { useState } from "react";
-import { Ubuntu } from "next/font/google";
-
-const ubuntu = Ubuntu({
-  weight: "300",
-  subsets: ["latin"],
-});
 
 export default function CartPage() {
   const router = useRouter();
@@ -60,7 +54,7 @@ export default function CartPage() {
 
   return (
     <>
-      <h2 className={`${ubuntu.className} m-4 text-2xl`}>cart</h2>
+      <h2 className="m-4 text-2xl">Cart</h2>
       <div className="flex sm:flex-row flex-col m-4">
         <div className="flex flex-col gap-10">
           {itemsInCart.map((item) => {

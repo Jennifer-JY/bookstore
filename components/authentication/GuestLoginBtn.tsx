@@ -32,7 +32,7 @@ export default function GuestLoginBtn() {
       onClick={handleGuest}
       disabled={loading}
       className={`rounded-md w-40 h-8 ${
-        loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#FF495C]"
+        loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#dba40e]"
       } text-white hover:cursor-pointer`}
     >
       {loading ? "Logging in..." : "Try it out as a guest"}

@@ -4,11 +4,19 @@ import Link from "next/link";
 import TopBar from "@/components/TopBar";
 import CartContextProvider from "./contextAndProvider/cartContext";
 import { auth } from "@/auth";
+import { Roboto } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Bookdrop",
   description: "A small bookstore for the curious mind.",
 };
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto",
+  display: "swap",
+});
 
 export default async function RootLayout({
   children,
@@ -24,18 +32,9 @@ export default async function RootLayout({
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         />
       </head>
-      <body className="min-h-screen flex flex-col">
+      <body className={`min-h-screen flex flex-col ${roboto.className}`}>
         <CartContextProvider session={session}>
           <header>
-            <div className="bg-[#F3DFA2] relative notification-banner">
-              <span className="text-left sm:block sm:text-center font-medium">
-                Free shipping on orders over $50
-              </span>
-              <span className="text-right absolute right-3 top-1/2 -translate-y-1/2">
-                🇦🇺 AU
-              </span>
-            </div>
-
             <TopBar />
           </header>
 
@@ -52,13 +51,6 @@ export default async function RootLayout({
                 href={"https://github.com/Jennifer-JY/bookstore"}
               >
                 GitHub Repo
-              </Link>
-              <Link
-                className="text-blue-600 underline hover:text-blue-800"
-                target="_blank"
-                href={"/"}
-              >
-                Homepage
               </Link>
             </div>
           </section>
