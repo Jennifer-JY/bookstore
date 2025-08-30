@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { getBookById } from "@/app/lib/data";
 import AddBookToCartBtn from "@/components/books/AddToCarBtn";
+import { Image } from "@imagekit/next";
 
 type Params = {
   book_id: string;
@@ -19,10 +19,12 @@ export default async function BookPage({
     <div className="flex flex-row m-4 gap-4">
       {book_id && (
         <Image
+          urlEndpoint="https://ik.imagekit.io/iqam99dxz"
+          src={`/${book_id}.png`}
           width={155}
           height={225}
-          alt="bookcover display"
-          src={`/bookCovers/${book_id}.png`}
+          alt="book cover display"
+          loading="lazy" // Use "eager" to load immediately. `lazy` is the default value
           className="object-cover"
         />
       )}

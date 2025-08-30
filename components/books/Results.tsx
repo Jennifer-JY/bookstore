@@ -1,7 +1,7 @@
 import { fetchBooksGivenTerm, fetchTotalNumItemsFound } from "@/app/lib/data";
-import Image from "next/image";
 import Pagenation from "./Pagination";
 import Link from "next/link";
+import { Image } from "@imagekit/next";
 
 const PAGE_SIZE = 10;
 
@@ -35,11 +35,13 @@ export default async function Result({
             <div key={b.id}>
               <Link href={`/books/${b.id}`}>
                 <Image
+                  urlEndpoint="https://ik.imagekit.io/iqam99dxz"
+                  src={`/${b.id}.png`}
                   width={1410}
                   height={2250}
                   alt={`book ${b.title} by ${b.author} book cover`}
-                  src={`/bookCovers/${b.id}.png`}
-                ></Image>
+                  loading="lazy" // Use "eager" to load immediately. `lazy` is the default value
+                />
               </Link>
               <Link href={`/books/${b.id}`}>
                 <div>Title: {b.title}</div>
