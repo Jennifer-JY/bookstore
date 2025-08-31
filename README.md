@@ -2,6 +2,12 @@
 
 _This project is a work-in-progress. I’m continuously learning and improving it_
 
+## 🎬 Demo
+
+![Browse and search for books.](docs/browsing-n-searching.gif)
+![View cart and proceed to checkout.](docs/checkout.gif)
+![Register and log in.](docs/authentication.gif)
+
 ## Description
 
 Bookdrop is a personal project — an online bookstore where users can:
