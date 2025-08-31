@@ -7,7 +7,7 @@ import { Roboto } from "next/font/google";
 import { Footer } from "@/components/homepage/Footer";
 
 export const metadata: Metadata = {
-  title: "Bookdrop",
+  title: "Booknest",
   description: "A small bookstore for the curious mind.",
 };
 
