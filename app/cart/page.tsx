@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "../contextAndProvider/cartContext";
 import { Image } from "@imagekit/next";
 import { useState } from "react";
+import { EmptyCart } from "@/components/cart/EmptyCart";
 
 export default function CartPage() {
   const router = useRouter();
@@ -61,6 +62,10 @@ export default function CartPage() {
     (sum, item) => sum + Number(item.quantity),
     0
   );
+
+  if (!itemsInCart.length) {
+    return <EmptyCart />;
+  }
 
   return (
     <div className="m-6">
@@ -166,7 +171,7 @@ export default function CartPage() {
                   name="phone"
                   className="p-2 border border-gray-300"
                   type="tel"
-                  placeholder="e.g. +61 0467362538"
+                  placeholder="e.g. 0467362538"
                   value={userDelivInfo.phone}
                   onChange={handleChange}
                 />
@@ -188,7 +193,6 @@ export default function CartPage() {
             </button>
           </div>
         )}
-        {itemsInCart.length === 0 && <div>Your cart is empty.</div>}
       </div>
     </div>
   );

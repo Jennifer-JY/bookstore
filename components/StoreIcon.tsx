@@ -14,7 +14,7 @@ export default function StoreIcon() {
         <div
           className={`${quicksand.className} w-fit h-5 hidden font-bold text-2xl cursor-pointer sm:flex items-center`}
         >
-          Bookdrop
+          Booknest
         </div>
         <div className="block sm:hidden font-bold text-xl">B</div>
       </Link>
