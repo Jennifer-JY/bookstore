@@ -6,13 +6,7 @@ const nunito = Nunito({
   weight: ["400", "700"],
 });
 
-export default function SuccessCheckoutPage({
-  searchParams,
-}: {
-  searchParams?: { order?: string };
-}) {
-  const orderId = searchParams?.order;
-
+export default function SuccessCheckoutPage() {
   return (
     <main
       className={`${nunito.className} min-h-[60dvh] flex items-center justify-center p-6`}
@@ -38,13 +32,8 @@ export default function SuccessCheckoutPage({
         </h1>
 
         <p className="mt-3 text-center text-gray-700">
-          We’ve received your order
-          {orderId ? (
-            <>
-              <span className="font-medium">#{orderId}</span>
-            </>
-          ) : null}
-          . Once your payment is confirmed, it will appear in{" "}
+          We’ve received your order. Once your payment is confirmed, it will
+          appear in{" "}
           <span className="font-medium">My Account → Past orders</span>.
         </p>
 
