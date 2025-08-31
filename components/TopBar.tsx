@@ -11,7 +11,7 @@ export default function TopBar() {
   const { session, itemsInCart } = useCart();
 
   return (
-    <div className="flex flex-row justify-between items-center p-4 bg-[#59981a] text-white text-base">
+    <header className="flex flex-row justify-between items-center p-4 bg-[#59981a] text-white text-base">
       <StoreIcon />
 
       <Suspense>
@@ -74,12 +74,15 @@ export default function TopBar() {
             {/* Badge */}
             {itemsInCart.length > 0 && (
               <span className="absolute -top-3 md:right-5 right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
-                {itemsInCart.length}
+                {itemsInCart.reduce(
+                  (sum, item) => sum + Number(item.quantity),
+                  0
+                )}
               </span>
             )}
           </Link>
         )}
       </div>
-    </div>
+    </header>
   );
 }

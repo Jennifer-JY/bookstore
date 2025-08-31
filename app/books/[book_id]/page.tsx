@@ -19,18 +19,16 @@ export default async function BookPage({
   return (
     <div className="p-12">
       <section className="flex flex-col md:flex-row gap-10 justify-center items-center md:items-start">
-        <div className="border-r-2 border-gray-300 pr-12">
-          {book_id && (
-            <Image
-              urlEndpoint="https://ik.imagekit.io/iqam99dxz"
-              src={`/${book_id}.png`}
-              width={310}
-              height={450}
-              alt="book cover display"
-              loading="lazy" // Use "eager" to load immediately. `lazy` is the default value
-              className="w-full max-w-[310px] sm:max-w-[260px] lg:max-w-[310px] h-auto object-cover"
-            />
-          )}
+        <div className="w-[310px] sm:w-[260px] lg:w-[310px] aspect-[31/45] bg-gray-200">
+          <Image
+            urlEndpoint="https://ik.imagekit.io/iqam99dxz"
+            src={`/${book_id}.png`}
+            width={310}
+            height={450}
+            alt="book cover display"
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <div className="flex-1 flex gap-y-6 flex-col">

@@ -9,7 +9,6 @@ export default async function AccountPage() {
 
   return (
     <div className="m-5">
-      <div>Hello {session?.user.name || "customer"},</div>
       <div>
         <h2 className="text-2xl font-bold my-7">Past Orders</h2>
 

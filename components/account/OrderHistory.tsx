@@ -64,7 +64,7 @@ export default async function PastOrders() {
 
             {/* Footer / Total */}
             <div className="flex justify-end mt-6">
-              <div className="text-3xl font-bold">
+              <div className="text-2xl font-bold">
                 Total: ${order.totalPrice}
               </div>
             </div>

@@ -257,6 +257,7 @@ export async function getPastOrders(
       JOIN books b ON b.id = cd.book_id
       WHERE uc.email = ${email}
         AND uc.status = 'paid'
+      ORDER BY uc.create_date DESC;
     `;
 
     const grouped: Record<
