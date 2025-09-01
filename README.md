@@ -2,13 +2,25 @@
 
 _This project is a work-in-progress. I’m continuously learning and improving it_
 
+## 🎬 Demo
+
+_Register and log in_  
+![Register and log in](docs/demo-bookstore-auth.gif)
+
+_Browse and search for books_  
+![Browse and search for books](docs/demo-bookstore-search.gif)
+
+_Add a book to the cart_  
+![Add a book to the cart](docs/demo-bookstore-add-to-cart.gif)
+
+_View the cart and proceed to checkout_  
+![View the cart and proceed to checkout](docs/demo-bookstore-checkout.gif)
+
 ## Description
 
-Bookdrop is a personal project — an online bookstore where users can:
+Booknest is a personal project — an online bookstore where users can:
 
 - Register and log in to their accounts (Google Sign-In supported — test accounts only at this stage)
-
-- View past orders
 
 - Search for books or authors
 
@@ -17,6 +29,8 @@ Bookdrop is a personal project — an online bookstore where users can:
 - Add books to their cart
 
 - Pay securely via Stripe
+
+- View past orders
 
 ## 📚 Usage Tips
 
@@ -33,7 +47,7 @@ Bookdrop is a personal project — an online bookstore where users can:
 - Add books to your cart and complete checkout using Stripe.
   To test Stripe checkout, use card number 4242 4242 4242 4242, expiry 04/29, CVC 424, and ZIP code 4242 — all values are repeating 42s.
 
-- Click the user icon to view past completed orders.
+- Click “My Account” in the top bar to view past completed orders.
 
 ## 🛠️ Tech Stack
 
@@ -47,7 +61,7 @@ This project is built using:
 
 - Auth.js
 
-- Stripe
+- Stripe API
 
 - PostgreSQL
 
