@@ -102,6 +102,7 @@ const config: Config = {
     "^@/(.*)$": "<rootDir>/$1",
     "^next/link$": "<rootDir>/__mocks__/next/link.tsx",
     "^next/navigation$": "<rootDir>/__mocks__/next/navigation.tsx",
+    "^next-auth/react$": "<rootDir>/__mocks__/next-auth/react.ts",
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
