@@ -116,6 +116,7 @@ export default function Register() {
 
           {/* Submit */}
           <button
+            disabled={isPending}
             aria-disabled={isPending}
             className="h-10 rounded-md bg-[#21B6A8] hover:bg-[#116530] text-white font-semibold transition disabled:opacity-50"
           >
