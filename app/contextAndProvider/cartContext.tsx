@@ -3,14 +3,14 @@ import { createContext, ReactNode, use, useEffect, useState } from "react";
 import { Cart, ItemInCart } from "../lib/types";
 import { Session } from "next-auth";
 
-type CartContextType = {
+export type CartContextType = {
   session: Session | null;
   cartId: string;
   itemsInCart: ItemInCart[];
   addItemToCart: (item: ItemInCart) => void;
 };
 
-const CartContext = createContext<CartContextType | null>(null);
+export const CartContext = createContext<CartContextType | null>(null);
 
 export default function CartContextProvider({
   children,
