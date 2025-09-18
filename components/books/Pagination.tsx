@@ -12,6 +12,7 @@ export default function Pagenation({ pages = 1 }: { pages?: number }) {
   const currentPage = Number.isInteger(pageNum) && pageNum > 0 ? pageNum : 1;
 
   const newSearchParams = new URLSearchParams(searchParams.toString());
+  // [TO CHANGE]the random is for the key in the react ele, confusing.
   const query = newSearchParams.get("query") || Math.random().toString();
 
   const handleClickPage = (selectedPageNum: number) => {
