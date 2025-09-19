@@ -7,31 +7,32 @@ export default function Pagenation({ pages = 1 }: { pages?: number }) {
   const pathname = usePathname();
   // Get the current page number
   const searchParams = useSearchParams();
-  const page = searchParams.get("page") || 1;
-  const pageNum = Number(page);
+  const rawPage = searchParams.get("page") || 1;
+  const pageNum = Number(rawPage);
   const currentPage = Number.isInteger(pageNum) && pageNum > 0 ? pageNum : 1;
 
-  const newSearchParams = new URLSearchParams(searchParams.toString());
-  // [TO CHANGE]the random is for the key in the react ele, confusing.
-  const query = newSearchParams.get("query") || Math.random().toString();
-
-  const handleClickPage = (selectedPageNum: number) => {
-    newSearchParams.set("page", selectedPageNum.toString());
+  const routerPushWithParams = (newPageNum: string) => {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set("page", newPageNum);
     router.push(`${pathname}?${newSearchParams.toString()}`);
   };
-
+  const handleClickPage = (selectedPageNum: number) => {
+    routerPushWithParams(selectedPageNum.toString());
+  };
   const handleClickPreviousPage = () => {
-    newSearchParams.set("page", (pageNum - 1).toString());
-    router.push(`${pathname}?${newSearchParams.toString()}`);
+    routerPushWithParams((pageNum - 1).toString());
   };
   const handleClickNextPage = () => {
-    newSearchParams.set("page", (pageNum + 1).toString());
-    router.push(`${pathname}?${newSearchParams.toString()}`);
+    routerPushWithParams((pageNum + 1).toString());
   };
+
   const pageNumbers = showPageNums(currentPage, pages);
 
   return (
-    <div className="flex justify-center items-center mt-4 m-4">
+    <nav
+      aria-label="Pagination"
+      className="flex justify-center items-center mt-4 m-4"
+    >
       <button
         disabled={currentPage === 1}
         onClick={handleClickPreviousPage}
@@ -53,7 +54,7 @@ export default function Pagenation({ pages = 1 }: { pages?: number }) {
         if (typeof num === "number") {
           return (
             <button
-              key={index + num + query}
+              key={index + num}
               disabled={currentPage === num}
               className={clsx("shadow-md px-3 py-1 transition-colors", {
                 " text-gray-300 cursor-default border-2 border-solid":
@@ -68,7 +69,7 @@ export default function Pagenation({ pages = 1 }: { pages?: number }) {
           );
         } else {
           return (
-            <span key={index + num + query} className="shadow-md px-3 py-1">
+            <span key={index + num} className="shadow-md px-3 py-1">
               {num}
             </span>
           );
@@ -92,7 +93,7 @@ export default function Pagenation({ pages = 1 }: { pages?: number }) {
           <i className="fa-solid fa-arrow-right"></i>
         </div>
       </button>
-    </div>
+    </nav>
   );
 }
 
