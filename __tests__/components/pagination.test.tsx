@@ -33,18 +33,44 @@ describe("Pagination", () => {
     expect(out.get("query")).toBe("hello");
   });
 
-  it("shows the next two page numbers when on page 4", () => {
-    params = new URLSearchParams("?page=4");
+  it("shows the next two page numbers when on page 5", () => {
+    params = new URLSearchParams("?page=6");
     render(<Pagination pages={10} />);
 
     expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "2" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "3" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "2" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "3" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "4" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "5" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "6" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "7" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "8" })).toBeInTheDocument();
     expect(screen.getByText("...")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "7" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "9" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "10" })).toBeInTheDocument();
+  });
+
+  it("renders the correct shape when current page is in the middle", () => {
+    params = new URLSearchParams("?page=10");
+    render(<Pagination pages={20} />);
+
+    const nav = screen.getByRole("navigation", { name: /pagination/i });
+    // direct children only: buttons and the top-level "..." spans
+    const items = nav.querySelectorAll(":scope > button, :scope > span");
+
+    const labels = Array.from(items).map((el) => el.textContent?.trim());
+    expect(labels).toEqual([
+      "Previous",
+      "1",
+      "...",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "...",
+      "20",
+      "Next",
+    ]);
   });
 
   it("navigates to the next page when Next is clicked", () => {
