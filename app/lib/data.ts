@@ -1,4 +1,3 @@
-import postgres from "postgres";
 import {
   Book,
   BookData,
@@ -11,8 +10,11 @@ import {
 import { signIn } from "@/auth";
 import { randomBytes } from "crypto";
 import bcrypt from "bcryptjs";
-
-export const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+import { sql } from "./db/client";
+// after moving export const sql to another file:
+// still exporting it here to avoid breaking code
+// that imports sql from this file
+export { sql };
 
 export async function fetchBooksGivenTerm(
   term: string | null,
@@ -34,7 +36,7 @@ export async function fetchBooksGivenTerm(
           LIMIT ${pageSize} OFFSET ${offset}`;
     return data;
   } catch (error) {
-    console.error("Database Error:", error);
+    console.error("Database Error in fetchBooksGivenTerm:", error);
     throw new Error("Failed to fetch the books you are looking for.");
   }
 }
@@ -52,8 +54,8 @@ export async function fetchTotalNumItemsFound(term: string | null) {
 
     return result[0].count;
   } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch the books you are looking for.");
+    console.error("Database Error in fetchTotalNumItemsFound:", error);
+    throw new Error("Failed to fetch the number of books you are looking for.");
   }
 }
 
@@ -76,8 +78,8 @@ export async function getBookById(book_id: string) {
     // if no record, return null
     return result.length > 0 ? result[0] : null;
   } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch the books you are looking for.");
+    console.error("Database Error in getBookById:", error);
+    throw new Error("Failed to fetch the book you are looking for.");
   }
 }
 
@@ -339,7 +341,7 @@ export async function createGuestUser() {
         VALUES (${email}, ${await bcrypt.hash(password, 10)});
       `;
     });
-    console.log("the email: " + email);
+
     const result = await signIn("credentials", {
       email,
       password,
